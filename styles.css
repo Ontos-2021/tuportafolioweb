@@ -443,6 +443,7 @@ footer {
 
     .hero .container {
         flex-direction: column;
+        gap: 30px; /* Reduce gap on mobile */
     }
 
     .hero h2 {
@@ -451,6 +452,21 @@ footer {
 
     .section-title {
         font-size: 2rem;
+    }
+
+    /* Add a hamburger menu for better mobile navigation */
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    nav ul {
+        display: none; /* Hide by default on mobile */
+    }
+    
+    nav ul.show {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
     }
 }
 

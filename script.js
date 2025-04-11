@@ -25,14 +25,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cambiar estilo del header al hacer scroll
     const header = document.querySelector('header');
     
+    // Add throttling to the scroll event for better performance
+    let scrollTimeout;
     window.addEventListener('scroll', function() {
-        if (window.scrollY > 100) {
-            header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-        } else {
-            header.style.backgroundColor = 'white';
-            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
+        if (scrollTimeout) {
+            window.cancelAnimationFrame(scrollTimeout);
         }
+        
+        scrollTimeout = window.requestAnimationFrame(function() {
+            if (window.scrollY > 100) {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.backgroundColor = 'white';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
+            }
+        });
     });
     
     // Manejar el envío del formulario
@@ -54,6 +62,19 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Limpiar el formulario
             contactForm.reset();
+        });
+        
+        // Add visual feedback for form validation
+        const inputs = contactForm.querySelectorAll('input, textarea');
+
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.value.trim() === '' && this.hasAttribute('required')) {
+                    this.style.borderColor = 'var(--color-acento)';
+                } else {
+                    this.style.borderColor = '#ddd';
+                }
+            });
         });
     }
 });
