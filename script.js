@@ -1,80 +1,214 @@
-// Navegación suave al hacer clic en los enlaces del menú
+// Smooth scroll para los enlaces de navegación
 document.addEventListener('DOMContentLoaded', function() {
-    const links = document.querySelectorAll('nav a, .btn-principal');
+    const links = document.querySelectorAll('a[href^="#"]');
     
     for (const link of links) {
         link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
+            e.preventDefault();
             
-            if (href.startsWith('#')) {
-                e.preventDefault();
-                const targetId = href;
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    // Desplazamiento suave
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80, // Ajuste para el header fijo
-                        behavior: 'smooth'
-                    });
-                }
+            const href = this.getAttribute('href');
+            const targetElement = document.querySelector(href);
+            
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100, // Ajuste para el header fijo
+                    behavior: 'smooth'
+                });
             }
         });
     }
     
-    // Cambiar estilo del header al hacer scroll
-    const header = document.querySelector('header');
+    // Animación de header al hacer scroll
+    const header = document.querySelector('.header-main');
     
-    // Add throttling to the scroll event for better performance
+    // Mejora de rendimiento con throttling para el evento scroll
     let scrollTimeout;
     window.addEventListener('scroll', function() {
-        if (scrollTimeout) {
-            window.cancelAnimationFrame(scrollTimeout);
-        }
+        clearTimeout(scrollTimeout);
         
-        scrollTimeout = window.requestAnimationFrame(function() {
-            if (window.scrollY > 100) {
-                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+        scrollTimeout = setTimeout(function() {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
             } else {
-                header.style.backgroundColor = 'white';
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
+                header.classList.remove('scrolled');
             }
-        });
+        }, 10);
     });
     
-    // Manejar el envío del formulario
-    const contactForm = document.querySelector('.contacto-form form');
+    // Filtro de la galería de proyectos
+    const filtroBtns = document.querySelectorAll('.filtro-btn');
+    const proyectos = document.querySelectorAll('.proyecto');
     
+    if (filtroBtns.length > 0 && proyectos.length > 0) {
+        filtroBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remover clase activa
+                filtroBtns.forEach(b => b.classList.remove('active'));
+                // Añadir clase activa al botón pulsado
+                btn.classList.add('active');
+                
+                const filtro = btn.getAttribute('data-filter');
+                
+                proyectos.forEach(proyecto => {
+                    // Añadir animación de fade
+                    proyecto.classList.add('fade-out');
+                    
+                    setTimeout(() => {
+                        if (filtro === 'todos') {
+                            proyecto.style.display = 'block';
+                        } else {
+                            const categoria = proyecto.getAttribute('data-category');
+                            if (categoria === filtro) {
+                                proyecto.style.display = 'block';
+                            } else {
+                                proyecto.style.display = 'none';
+                            }
+                        }
+                        
+                        setTimeout(() => {
+                            proyecto.classList.remove('fade-out');
+                        }, 50);
+                    }, 300);
+                });
+            });
+        });
+    }
+    
+    // Contador de estadísticas animado
+    function animateNumbers() {
+        const stats = document.querySelectorAll('.number');
+        
+        stats.forEach(stat => {
+            const targetValue = parseInt(stat.textContent);
+            const duration = 2000; // duración en milisegundos
+            const startTime = Date.now();
+            const startValue = 0;
+            
+            function updateCount() {
+                const elapsedTime = Date.now() - startTime;
+                const progress = Math.min(elapsedTime / duration, 1);
+                const easedProgress = easeOutCubic(progress);
+                const currentValue = Math.floor(startValue + (targetValue - startValue) * easedProgress);
+                
+                stat.textContent = currentValue + (stat.textContent.includes('+') ? '+' : '');
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateCount);
+                }
+            }
+            
+            function easeOutCubic(x) {
+                return 1 - Math.pow(1 - x, 3);
+            }
+            
+            updateCount();
+        });
+    }
+    
+    // Observer para activar la animación cuando el elemento sea visible
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateNumbers();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    const heroStats = document.querySelector('.hero-stats');
+    if (heroStats) {
+        observer.observe(heroStats);
+    }
+    
+    // Animación de elementos al hacer scroll
+    const animatedElements = document.querySelectorAll('.servicio-card, .paso, .paquete-card, .proyecto, .testimonio');
+    
+    const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                return;
+            } else {
+                entry.target.classList.add('element-visible');
+                appearOnScroll.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    animatedElements.forEach(el => {
+        el.classList.add('animate-on-scroll');
+        appearOnScroll.observe(el);
+    });
+    
+    // Añadir estilos dinámicos para las animaciones de scroll
+    const style = document.createElement('style');
+    style.innerHTML = `
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .animate-on-scroll.element-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Formulario de contacto con validación y animación
+    const contactForm = document.querySelector('.contacto-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Obtener los valores del formulario
-            const nombre = document.getElementById('nombre').value;
-            const email = document.getElementById('email').value;
-            const telefono = document.getElementById('telefono').value;
-            const mensaje = document.getElementById('mensaje').value;
+            // Validación simple
+            let isValid = true;
+            const formInputs = this.querySelectorAll('input[required], textarea[required]');
             
-            // Aquí normalmente se enviaría la información a un backend
-            // Por ahora, solo mostraremos un mensaje de éxito
-            alert(`¡Gracias ${nombre} por contactarnos! Te responderemos a la brevedad.`);
-            
-            // Limpiar el formulario
-            contactForm.reset();
-        });
-        
-        // Add visual feedback for form validation
-        const inputs = contactForm.querySelectorAll('input, textarea');
-
-        inputs.forEach(input => {
-            input.addEventListener('blur', function() {
-                if (this.value.trim() === '' && this.hasAttribute('required')) {
-                    this.style.borderColor = 'var(--color-acento)';
+            formInputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.classList.add('error');
                 } else {
-                    this.style.borderColor = '#ddd';
+                    input.classList.remove('error');
                 }
             });
+            
+            if (!isValid) {
+                return;
+            }
+            
+            // Aquí iría la lógica de envío del formulario a un backend
+            // Por ahora, simulamos una respuesta exitosa
+            
+            const submitBtn = this.querySelector('.btn-submit') || this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<span class="btn-icon"><i class="fas fa-spinner fa-spin"></i></span>Enviando...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = '<span class="btn-icon"><i class="fas fa-check"></i></span>¡Mensaje Enviado!';
+                submitBtn.style.backgroundColor = 'var(--color-success)';
+                
+                // Resetear el formulario después de 2 segundos
+                setTimeout(() => {
+                    contactForm.reset();
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.style.backgroundColor = '';
+                }, 2000);
+            }, 1500);
         });
     }
 });

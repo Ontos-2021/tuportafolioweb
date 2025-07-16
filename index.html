@@ -3,64 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Portafolio Web - Servicios de Creación Web Profesionales</title>
+    <title>Tu Portafolio Web — Diseño Web Artístico & Profesional</title>
+    <meta name="description" content="Estudio de diseño especializado en portafolios creativos y landing pages de alta conversión. Equilibrio perfecto entre arte y funcionalidad.">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="container">
+    <header class="header-main">
+        <div class="container header-container">
             <div class="logo">
-                <h1>Tu Portafolio Web</h1>
+                <h1>Tu Portafolio Web<span class="accent-dot">.</span></h1>
+                <span class="tagline">Arte & Diseño Digital</span>
             </div>
-            <nav>
+            <nav class="main-nav">
                 <ul>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#proceso">Proceso</a></li>
-                    <li><a href="#portafolio">Portafolio</a></li>
-                    <li><a href="#testimonios">Testimonios</a></li>
-                    <li><a href="#contacto" class="btn-contacto">Contáctanos</a></li>
+                    <li><a href="#servicios" class="nav-link">Servicios</a></li>
+                    <li><a href="#proceso" class="nav-link">Proceso</a></li>
+                    <li><a href="#galeria" class="nav-link">Galería</a></li>
+                    <li><a href="#paquetes" class="nav-link">Paquetes</a></li>
+                    <li><a href="#contacto" class="btn-contacto">Iniciar Proyecto</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <section class="hero">
-        <div class="container">
+        <div class="container hero-grid">
             <div class="hero-content">
-                <h2>Destaca en línea con un sitio web profesional</h2>
-                <p>Creamos sitios web personalizados que representan tu marca y atraen a tus clientes ideales</p>
-                <a href="#contacto" class="btn-principal">Solicita una consulta gratis</a>
+                <div class="badge-container">
+                    <span class="hero-badge">Diseño Creativo</span>
+                </div>
+                <h2>Portafolios que <span class="highlight">inspiran</span> y landing pages que <span class="highlight">convencen</span></h2>
+                <p>Creamos experiencias digitales únicas donde el arte y la funcionalidad se unen para impulsar tu marca y maximizar tus conversiones.</p>
+                <div class="hero-buttons">
+                    <a href="#contacto" class="btn-principal">Diseña tu Presencia</a>
+                    <a href="#galeria" class="btn-secundario">
+                        <span class="btn-icon"><i class="fas fa-eye"></i></span>
+                        Ver Proyectos
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="number">150+</span>
+                        <span class="label">Proyectos Creativos</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">98%</span>
+                        <span class="label">Satisfacción Cliente</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">72h</span>
+                        <span class="label">Entrega Express</span>
+                    </div>
+                </div>
             </div>
-            <div class="hero-image">
-                <img src="assets/hero-image.png" alt="Ilustración de diseño web">
+            <div class="hero-visual">
+                <div class="floating-cards">
+                    <div class="preview-card card-1">
+                        <img src="assets/hero-image.png" alt="Diseño creativo para portafolios web">
+                    </div>
+                </div>
+                <div class="bg-shape"></div>
             </div>
         </div>
     </section>
 
     <section id="servicios" class="servicios">
         <div class="container">
-            <h2 class="section-title">Nuestros Servicios</h2>
+            <div class="section-header">
+                <span class="section-badge">Especialidades</span>
+                <h2 class="section-title">Servicios que Potencian tu Imagen Digital</h2>
+                <p class="section-subtitle">Cada servicio se adapta a tus necesidades: desde una landing llamativa hasta soluciones personalizadas con desarrollo avanzado.</p>
+            </div>
             <div class="servicios-grid">
-                <div class="servicio-card">
-                    <i class="fas fa-laptop-code"></i>
-                    <h3>Diseño de Sitios Web</h3>
-                    <p>Creamos sitios web a medida, optimizados para móviles y con diseño atractivo y profesional.</p>
+                <div class="servicio-card featured">
+                    <div class="card-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Portafolios Creativos</h3>
+                    <p>Para creativos que desean resaltar su obra en un entorno digital único.</p>
+                    <ul class="features-list">
+                        <li>Diseño visual personalizado</li>
+                        <li>Galería interactiva</li>
+                        <li>Optimización total para móviles</li>
+                        <li>Integración con redes sociales</li>
+                    </ul>
+                    <div class="price-tag">Desde €299</div>
                 </div>
                 <div class="servicio-card">
-                    <i class="fas fa-shopping-cart"></i>
-                    <h3>Tiendas Online</h3>
-                    <p>Desarrollamos plataformas de ecommerce completas para vender tus productos o servicios.</p>
+                    <div class="card-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Landing Pages de Conversión</h3>
+                    <p>Páginas de aterrizaje que capturan la atención y generan resultados.</p>
+                    <ul class="features-list">
+                        <li>Copywriting estratégico</li>
+                        <li>CTA optimizados</li>
+                        <li>Análisis A/B</li>
+                        <li>Integración con Analytics</li>
+                    </ul>
+                    <div class="price-tag">Desde €199</div>
                 </div>
                 <div class="servicio-card">
-                    <i class="fas fa-search"></i>
-                    <h3>SEO y Marketing Digital</h3>
-                    <p>Optimizamos tu presencia en línea para que tus clientes te encuentren fácilmente.</p>
-                </div>
-                <div class="servicio-card">
-                    <i class="fas fa-palette"></i>
-                    <h3>Identidad Visual</h3>
-                    <p>Diseñamos logos y materiales corporativos que reflejan la esencia de tu marca.</p>
+                    <div class="card-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Desarrollo Avanzado</h3>
+                    <p>Soluciones completas: desde portafolios hasta sitios integrales con base de datos.</p>
+                    <ul class="features-list">
+                        <li>Aplicaciones web personalizadas</li>
+                        <li>Integración de bases de datos</li>
+                        <li>APIs ajustadas a tus necesidades</li>
+                        <li>Mantenimiento y soporte continuo</li>
+                    </ul>
+                    <div class="price-tag">Desde €899</div>
                 </div>
             </div>
         </div>
@@ -68,141 +127,387 @@
 
     <section id="proceso" class="proceso">
         <div class="container">
-            <h2 class="section-title">Nuestro Proceso</h2>
-            <div class="proceso-pasos">
-                <div class="paso">
+            <div class="section-header">
+                <span class="section-badge">Metodología</span>
+                <h2 class="section-title">Proceso Creativo en 4 Pasos</h2>
+                <p class="section-subtitle">Un enfoque sistemático y colaborativo para garantizar resultados excepcionales en cada proyecto.</p>
+            </div>
+            <div class="proceso-timeline">
+                <div class="paso active">
                     <div class="paso-numero">1</div>
-                    <h3>Consulta Inicial</h3>
-                    <p>Conversamos sobre tus objetivos, necesidades y visión para tu presencia en línea.</p>
+                    <h3>Descubrimiento</h3>
+                    <p>Entendemos tu visión, objetivos y audiencia para crear la estrategia perfecta.</p>
+                    <div class="paso-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
                 </div>
                 <div class="paso">
                     <div class="paso-numero">2</div>
-                    <h3>Propuesta y Diseño</h3>
-                    <p>Creamos un prototipo visual de tu sitio web basado en tus requisitos.</p>
+                    <h3>Concepto & Wireframes</h3>
+                    <p>Diseñamos la estructura y flujo de usuario antes de crear los elementos visuales.</p>
+                    <div class="paso-icon">
+                        <i class="fas fa-pencil-ruler"></i>
+                    </div>
                 </div>
                 <div class="paso">
                     <div class="paso-numero">3</div>
-                    <h3>Desarrollo</h3>
-                    <p>Construimos tu sitio web con código limpio y tecnologías modernas.</p>
+                    <h3>Diseño & Desarrollo</h3>
+                    <p>Damos vida al concepto con diseño artístico y código limpio y eficiente.</p>
+                    <div class="paso-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
                 </div>
                 <div class="paso">
                     <div class="paso-numero">4</div>
-                    <h3>Revisión y Lanzamiento</h3>
-                    <p>Refinamos los detalles finales y lanzamos tu sitio web al mundo.</p>
+                    <h3>Optimización & Lanzamiento</h3>
+                    <p>Refinamos cada detalle y optimizamos para performance antes del gran debut.</p>
+                    <div class="paso-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="portafolio" class="portafolio">
+    <section id="galeria" class="galeria">
         <div class="container">
-            <h2 class="section-title">Proyectos Destacados</h2>
-            <div class="portafolio-grid">
-                <div class="proyecto">
-                    <img src="assets/proyecto1.jpg" alt="Proyecto 1">
-                    <div class="proyecto-info">
-                        <h3>Nombre del Proyecto</h3>
-                        <p>Diseño web para empresa de servicios</p>
+            <div class="section-header">
+                <span class="section-badge">Showcase</span>
+                <h2 class="section-title">Proyectos que Cautivan</h2>
+                <p class="section-subtitle">Una muestra de nuestras creaciones más destacadas donde la creatividad y la tecnología se fusionan.</p>
+            </div>
+            <div class="filtros">
+                <button class="filtro-btn active" data-filter="todos">Todos</button>
+                <button class="filtro-btn" data-filter="portafolios">Portafolios</button>
+                <button class="filtro-btn" data-filter="landing">Landing Pages</button>
+                <button class="filtro-btn" data-filter="desarrollo">Desarrollo Avanzado</button>
+            </div>
+            <div class="galeria-grid">
+                <div class="proyecto" data-category="portafolios">
+                    <div class="proyecto-inner">
+                        <img src="assets/proyecto1.jpg" alt="Portfolio Fotógrafo">
+                        <div class="overlay">
+                            <div class="proyecto-info">
+                                <span class="proyecto-categoria">Portafolio Creativo</span>
+                                <h3>Lens — Fotografía Artística</h3>
+                                <p>Portafolio minimalista para destacar el trabajo visual</p>
+                                <a href="#" class="btn-ver-proyecto"><i class="fas fa-external-link-alt"></i> Ver proyecto</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="proyecto">
-                    <img src="assets/proyecto2.jpg" alt="Proyecto 2">
-                    <div class="proyecto-info">
-                        <h3>Nombre del Proyecto</h3>
-                        <p>Tienda online para comercio local</p>
+                <div class="proyecto" data-category="landing">
+                    <div class="proyecto-inner">
+                        <img src="assets/proyecto2.jpg" alt="Landing Page SaaS">
+                        <div class="overlay">
+                            <div class="proyecto-info">
+                                <span class="proyecto-categoria">Landing de Conversión</span>
+                                <h3>Nova SaaS — Software de Gestión</h3>
+                                <p>Landing page con +40% de conversión para software B2B</p>
+                                <a href="#" class="btn-ver-proyecto"><i class="fas fa-external-link-alt"></i> Ver proyecto</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="proyecto">
-                    <img src="assets/proyecto3.jpg" alt="Proyecto 3">
-                    <div class="proyecto-info">
-                        <h3>Nombre del Proyecto</h3>
-                        <p>Portafolio para fotógrafo profesional</p>
+                <div class="proyecto" data-category="desarrollo">
+                    <div class="proyecto-inner">
+                        <img src="assets/proyecto3.jpg" alt="Web App">
+                        <div class="overlay">
+                            <div class="proyecto-info">
+                                <span class="proyecto-categoria">Desarrollo Avanzado</span>
+                                <h3>Artemis — Plataforma de Artistas</h3>
+                                <p>Marketplace para artistas con sistema de pagos integrado</p>
+                                <a href="#" class="btn-ver-proyecto"><i class="fas fa-external-link-alt"></i> Ver proyecto</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="galeria-cta">
+                <p>¿Te gusta lo que ves? Tu proyecto podría ser el siguiente.</p>
+                <a href="#contacto" class="btn-principal">Iniciar mi Proyecto</a>
             </div>
         </div>
     </section>
 
+    <section id="paquetes" class="paquetes">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Inversión</span>
+                <h2 class="section-title">Elige tu Plan Ideal</h2>
+                <p class="section-subtitle">Soluciones escalables que se adaptan a tus necesidades y presupuesto sin comprometer la calidad.</p>
+            </div>
+            <div class="paquetes-grid">
+                <div class="paquete-card">
+                    <h3>Starter</h3>
+                    <div class="precio">
+                        <span class="currency">€</span>
+                        <span class="amount">199</span>
+                    </div>
+                    <p class="descripcion">Para emprendedores y creativos emergentes</p>
+                    <ul class="paquete-features">
+                        <li><i class="fas fa-check"></i> Landing Page profesional</li>
+                        <li><i class="fas fa-check"></i> Diseño responsive</li>
+                        <li><i class="fas fa-check"></i> Formulario de contacto</li>
+                        <li><i class="fas fa-check"></i> Entrega en 72h</li>
+                        <li><i class="fas fa-check"></i> 1 ronda de revisión</li>
+                    </ul>
+                    <a href="#contacto" class="btn-paquete">Iniciar Proyecto</a>
+                </div>
+                <div class="paquete-card popular">
+                    <div class="popular-badge">Más Popular</div>
+                    <h3>Professional</h3>
+                    <div class="precio">
+                        <span class="currency">€</span>
+                        <span class="amount">399</span>
+                    </div>
+                    <p class="descripcion">Para profesionales que necesitan destacar</p>
+                    <ul class="paquete-features">
+                        <li><i class="fas fa-check"></i> Portafolio completo o Landing Page</li>
+                        <li><i class="fas fa-check"></i> Galería interactiva</li>
+                        <li><i class="fas fa-check"></i> Blog integrado</li>
+                        <li><i class="fas fa-check"></i> SEO optimizado</li>
+                        <li><i class="fas fa-check"></i> 2 rondas de revisión</li>
+                    </ul>
+                    <a href="#contacto" class="btn-paquete">Iniciar Proyecto</a>
+                </div>
+                <div class="paquete-card">
+                    <h3>Enterprise</h3>
+                    <div class="precio">
+                        <span class="currency">€</span>
+                        <span class="amount">899</span>
+                    </div>
+                    <p class="descripcion">Soluciones integrales para empresas exigentes</p>
+                    <ul class="paquete-features">
+                        <li><i class="fas fa-check"></i> Desarrollo personalizado</li>
+                        <li><i class="fas fa-check"></i> Administración de base de datos</li>
+                        <li><i class="fas fa-check"></i> Sistema completo de gestión</li>
+                        <li><i class="fas fa-check"></i> Soporte y mantenimiento</li>
+                        <li><i class="fas fa-check"></i> Revisiones ilimitadas</li>
+                    </ul>
+                    <a href="#contacto" class="btn-paquete">Consultar Proyecto</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <section id="testimonios" class="testimonios">
         <div class="container">
-            <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+            <div class="section-header">
+                <span class="section-badge">Testimonios</span>
+                <h2 class="section-title">Lo que Dicen Nuestros Clientes</h2>
+                <p class="section-subtitle">Historias reales de clientes que transformaron su presencia digital con nuestras soluciones.</p>
+            </div>
             <div class="testimonios-slider">
                 <div class="testimonio">
-                    <p>"El equipo de Tu Portafolio Web transformó completamente mi presencia en línea. Mi nuevo sitio web ha aumentado mis ventas en un 40%."</p>
+                    <div class="testimonio-contenido">
+                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <p>Tu Portafolio Web transformó completamente mi presencia online. Mi portafolio ahora refleja perfectamente mi estilo artístico y ha aumentado mis clientes en un 60%.</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
                     <div class="cliente">
-                        <h4>María López</h4>
-                        <p>Dueña de Boutique Floral</p>
+                        <div class="cliente-img">
+                            <img src="assets/cliente1.webp" alt="Laura Martínez">
+                        </div>
+                        <div class="cliente-info">
+                            <h4>Laura Martínez</h4>
+                            <p>Fotógrafa & Directora Creativa</p>
+                        </div>
                     </div>
                 </div>
                 <div class="testimonio">
-                    <p>"Profesionales, creativos y eficientes. Entregaron exactamente lo que necesitaba, y en tiempo récord."</p>
+                    <div class="testimonio-contenido">
+                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <p>La landing page que diseñaron para mi startup logró una tasa de conversión del 12%, muy por encima del promedio de la industria. El equilibrio entre diseño y funcionalidad es perfecto.</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
                     <div class="cliente">
-                        <h4>Carlos Fernández</h4>
-                        <p>Arquitecto Independiente</p>
+                        <div class="cliente-img">
+                            <img src="assets/cliente2.webp" alt="Carlos Mendoza">
+                        </div>
+                        <div class="cliente-info">
+                            <h4>Carlos Mendoza</h4>
+                            <p>CEO de TechStart Solutions</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonio">
+                    <div class="testimonio-contenido">
+                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <p>El desarrollo avanzado de nuestra plataforma superó todas nuestras expectativas. Profesionales, creativos y comprometidos con la excelencia en cada línea de código.</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="cliente">
+                        <div class="cliente-img">
+                            <img src="assets/cliente3.webp" alt="Elena Rodríguez">
+                        </div>
+                        <div class="cliente-info">
+                            <h4>Elena Rodríguez</h4>
+                            <p>Directora de Producto, Artemis Inc</p>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="testimonios-dots"></div>
         </div>
     </section>
 
     <section id="contacto" class="contacto">
         <div class="container">
-            <h2 class="section-title">¿Listo para destacar en línea?</h2>
+            <div class="section-header">
+                <span class="section-badge">Comienza Ahora</span>
+                <h2 class="section-title">Transformemos tu Presencia Digital</h2>
+                <p class="section-subtitle">Cuéntanos sobre tu proyecto y crearemos una solución perfectamente adaptada a tus objetivos.</p>
+            </div>
             <div class="contacto-content">
-                <div class="contacto-form">
-                    <form>
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" id="nombre" name="nombre" required>
+                <div class="contacto-form-container">
+                    <div class="form-header">
+                        <span class="form-badge">Consulta Sin Compromiso</span>
+                        <h3>Cuéntanos Sobre tu Proyecto</h3>
+                    </div>
+                    <form class="contacto-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nombre">Nombre Completo</label>
+                                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Profesional</label>
+                                <input type="email" id="email" name="email" placeholder="email@ejemplo.com" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="telefono">Teléfono</label>
+                                <input type="tel" id="telefono" name="telefono" placeholder="+34 XXX XXX XXX">
+                            </div>
+                            <div class="form-group">
+                                <label for="servicio">Servicio que te Interesa</label>
+                                <select id="servicio" name="servicio">
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    <option value="portafolio">Portafolio Creativo</option>
+                                    <option value="landing">Landing Page</option>
+                                    <option value="desarrollo">Desarrollo Avanzado</option>
+                                    <option value="otro">Otro / No estoy seguro</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="telefono">Teléfono</label>
-                            <input type="tel" id="telefono" name="telefono">
+                        <div class="form-group full-width">
+                            <label for="mensaje">Detalles de tu Proyecto</label>
+                            <textarea id="mensaje" name="mensaje" rows="5" placeholder="Cuéntanos tus objetivos, plazos y cualquier detalle relevante para tu proyecto..." required></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="mensaje">¿En qué podemos ayudarte?</label>
-                            <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                        <div class="form-footer">
+                            <button type="submit" class="btn-principal btn-submit">
+                                <span class="btn-text">Enviar Consulta</span>
+                                <span class="btn-icon"><i class="fas fa-paper-plane"></i></span>
+                            </button>
+                            <p class="form-disclaimer">Al enviar este formulario, aceptas nuestra <a href="#">política de privacidad</a></p>
                         </div>
-                        <button type="submit" class="btn-principal">Enviar Mensaje</button>
                     </form>
                 </div>
                 <div class="contacto-info">
-                    <div class="info-item">
-                        <i class="fas fa-envelope"></i>
-                        <p>info@tuportafolioweb.com</p>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-phone"></i>
-                        <p>+34 123 456 789</p>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <p>Calle Principal 123, Ciudad</p>
-                    </div>
-                    <div class="redes-sociales">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <div class="info-card">
+                        <h3>¿Prefieres una Llamada?</h3>
+                        <p>Agenda una consulta gratuita de 30 minutos para discutir tu proyecto en detalle.</p>
+                        <a href="#" class="btn-secundario btn-call">
+                            <i class="fas fa-calendar-alt"></i>
+                            Agendar Llamada
+                        </a>
+                        <div class="separator"></div>
+                        <div class="contacto-directo">
+                            <div class="info-item">
+                                <i class="fas fa-envelope"></i>
+                                <p>hola@portfoliostudio.com</p>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-phone"></i>
+                                <p>+34 612 345 678</p>
+                            </div>
+                        </div>
+                        <div class="separator"></div>
+                        <h4>Síguenos</h4>
+                        <div class="redes-sociales">
+                            <a href="#" class="social-icon"><i class="fab fa-behance"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-dribbble"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Tu Portafolio Web. Todos los derechos reservados.</p>
-            <div class="footer-links">
-                <a href="#">Política de Privacidad</a>
-                <a href="#">Términos y Condiciones</a>
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-branding">
+                <div class="footer-logo">
+                    <h2>Tu Portafolio Web<span class="accent-dot">.</span></h2>
+                    <span class="tagline">Arte & Diseño Digital</span>
+                </div>
+                <p class="footer-desc">Creamos experiencias digitales únicas donde el arte y la funcionalidad se unen para impulsar tu marca y maximizar tus conversiones.</p>
+            </div>
+            <div class="footer-links-container">
+                <div class="footer-links">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#servicios">Portafolios Creativos</a></li>
+                        <li><a href="#servicios">Landing Pages</a></li>
+                        <li><a href="#servicios">Desarrollo Avanzado</a></li>
+                        <li><a href="#servicios">Mantenimiento Web</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="#proceso">Proceso de Trabajo</a></li>
+                        <li><a href="#galeria">Proyectos</a></li>
+                        <li><a href="#testimonios">Testimonios</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Política de Privacidad</a></li>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                        <li><a href="#">Política de Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 Tu Portafolio Web. Todos los derechos reservados.</p>
+                <p class="design-credit">Diseñado y desarrollado con <i class="fas fa-heart"></i> desde Madrid</p>
             </div>
         </div>
     </footer>
+
+    <div class="cta-flotante">
+        <a href="#contacto" class="btn-flotante">
+            <i class="fas fa-comments"></i>
+            <span>Iniciar Proyecto</span>
+        </a>
+    </div>
 
     <script src="script.js"></script>
 </body>
