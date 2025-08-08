@@ -968,109 +968,44 @@ button, input, select, textarea {
   background-color: white;
 }
 
-.contacto-content {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 4rem;
-  align-items: flex-start;
-}
-
-.contacto-form-container {
-  background-color: var(--color-light);
-  border-radius: var(--border-radius-l);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-}
-
-.form-header {
-  padding: 3rem 4rem;
-  background-color: var(--color-primary);
-  color: white;
-}
-
-.form-badge {
-  font-size: 1.4rem;
-  font-weight: 600;
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 0.5rem 1.5rem;
-  border-radius: 3rem;
-  display: inline-block;
-  margin-bottom: var(--spacing-s);
-}
-
-.form-header h3 {
-  font-family: var(--font-heading);
-  font-size: 2.6rem;
-  font-weight: 600;
-}
-
-.contacto-form {
-  padding: 4rem;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  margin-bottom: var(--spacing-l);
-}
-
-.form-group {
-  margin-bottom: var(--spacing-l);
-}
-
-.form-group.full-width {
-  grid-column: span 2;
-}
-
-.contacto-form label {
-  display: block;
-  font-weight: 500;
-  margin-bottom: var(--spacing-s);
-  color: var(--color-gray-dark);
-}
-
-.contacto-form input,
-.contacto-form select,
-.contacto-form textarea {
-  width: 100%;
-  padding: 1.2rem 1.5rem;
-  background-color: white;
-  border: 1px solid var(--color-gray-light);
-  border-radius: var(--border-radius-m);
-  transition: var(--transition-normal);
-}
-
-.contacto-form input:focus,
-.contacto-form select:focus,
-.contacto-form textarea:focus {
-  border-color: var(--color-primary);
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(82, 113, 255, 0.1);
-}
-
-.form-footer {
+/* Layout simplificado de contacto (solo WhatsApp) */
+.contacto-whatsapp {
+  max-width: 720px;
+  margin: 0 auto;
   text-align: center;
 }
 
-.btn-submit {
-  width: 100%;
-  margin-bottom: var(--spacing-m);
-}
+/* (Se removió el formulario de contacto) */
 
-.btn-submit .btn-icon {
-  margin-left: var(--spacing-s);
-  margin-right: 0;
-}
+/* Encabezados de tarjetas informativas */
 
-.form-disclaimer {
-  font-size: 1.3rem;
-  color: var(--color-gray-medium);
-}
+/* (Sin insignia de formulario) */
 
-.form-disclaimer a {
-  color: var(--color-primary);
-}
+/* (Título se gestiona con .info-card h3) */
+
+/* (Se eliminó .contacto-form) */
+
+/* (Se eliminó .form-row) */
+
+/* (Se eliminó .form-group) */
+
+/* (Se eliminó .form-group.full-width) */
+
+/* (Se eliminó label de formulario) */
+
+/* (Se eliminaron campos de formulario) */
+
+/* (Sin estilos de focus para formulario) */
+
+/* (Se eliminó .form-footer) */
+
+/* (Sin .btn-submit) */
+
+/* (Sin icono de envío) */
+
+/* (Sin disclaimer de formulario) */
+
+/* (N/A) */
 
 .info-card {
   background-color: var(--color-dark-blue);
@@ -1110,9 +1045,7 @@ button, input, select, textarea {
   margin: var(--spacing-l) 0;
 }
 
-.contacto-directo {
-  margin-bottom: var(--spacing-l);
-}
+/* (Se simplificó contacto directo a un CTA) */
 
 .info-item {
   display: flex;
@@ -1356,13 +1289,9 @@ button, input, select, textarea {
     grid-template-columns: 1fr;
   }
   
-  .contacto-content {
-    grid-template-columns: 1fr;
-  }
+  /* (Sin grid de contacto) */
   
-  .form-row {
-    grid-template-columns: 1fr;
-  }
+  /* (Sin filas de formulario) */
   
   .footer-links-container {
     grid-template-columns: 1fr;

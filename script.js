@@ -165,81 +165,31 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 
-    // Formulario de contacto con validación y animación
-    const contactForm = document.querySelector('.contacto-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validación simple
-            let isValid = true;
-            const formInputs = this.querySelectorAll('input[required], textarea[required]');
-            
-            formInputs.forEach(input => {
-                if (!input.value.trim()) {
-                    isValid = false;
-                    input.classList.add('error');
-                } else {
-                    input.classList.remove('error');
-                }
-            });
-            
-            if (!isValid) {
-                return;
-            }
-            
-            // Aquí iría la lógica de envío del formulario a un backend
-            // Por ahora, simulamos una respuesta exitosa
-            
-            const submitBtn = this.querySelector('.btn-submit') || this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            
-            submitBtn.innerHTML = '<span class="btn-icon"><i class="fas fa-spinner fa-spin"></i></span>Enviando...';
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                submitBtn.innerHTML = '<span class="btn-icon"><i class="fas fa-check"></i></span>¡Mensaje Enviado!';
-                submitBtn.style.backgroundColor = 'var(--color-success)';
-                
-                // Resetear el formulario después de 2 segundos
-                setTimeout(() => {
-                    contactForm.reset();
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                    submitBtn.style.backgroundColor = '';
-                }, 2000);
-            }, 1500);
-        });
-    }
+    // (Se eliminó el formulario de contacto: solo CTA de WhatsApp)
 });
 
-// Animación para hacer aparecer elementos al hacer scroll
-const observerOptions = {
-    threshold: 0.25
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, observerOptions);
-
-// Cuando el DOM esté cargado, añadir las clases y observar los elementos
+// Animación para hacer aparecer elementos al hacer scroll (consolidada)
 document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = { threshold: 0.25 };
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
     const sections = document.querySelectorAll('section');
-    
     sections.forEach(section => {
         section.classList.add('fade-in');
-        observer.observe(section);
+        revealObserver.observe(section);
     });
-    
-    // Añadir clases para animaciones específicas
+
     const cards = document.querySelectorAll('.servicio-card, .paso, .proyecto, .testimonio');
     cards.forEach((card, index) => {
         card.style.transitionDelay = `${index * 0.1}s`;
         card.classList.add('fade-in');
-        observer.observe(card);
+        revealObserver.observe(card);
     });
 });
