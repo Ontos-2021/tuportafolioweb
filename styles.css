@@ -561,6 +561,7 @@ button, input, select, textarea {
   z-index: 2;
   text-align: center;
   padding: 0 1.5rem;
+  outline: none; /* para focus */
 }
 
 .paso-numero {
@@ -577,7 +578,7 @@ button, input, select, textarea {
   font-weight: 700;
   color: var(--color-gray-medium);
   margin: 0 auto var(--spacing-l);
-  transition: var(--transition-normal);
+  transition: background-color var(--transition-normal), border-color var(--transition-normal), transform var(--transition-normal), color var(--transition-normal);
 }
 
 .paso h3 {
@@ -593,10 +594,13 @@ button, input, select, textarea {
   color: var(--color-gray-medium);
 }
 
-.paso.active .paso-numero {
+.paso.active .paso-numero,
+.paso:hover .paso-numero,
+.paso:focus-visible .paso-numero {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
   color: white;
+  transform: translateY(-2px);
 }
 
 .paso-icon {
@@ -607,10 +611,12 @@ button, input, select, textarea {
   font-size: 2.2rem;
   color: var(--color-primary);
   opacity: 0;
-  transition: var(--transition-normal);
+  transition: opacity var(--transition-normal), transform var(--transition-normal);
 }
 
-.paso:hover .paso-icon {
+.paso.active .paso-icon,
+.paso:hover .paso-icon,
+.paso:focus-visible .paso-icon {
   opacity: 1;
   animation: bounce 0.6s infinite alternate;
 }
@@ -1287,7 +1293,16 @@ button, input, select, textarea {
   
   .proceso-timeline {
     grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
+
+  /* Línea de tiempo oculta en móvil para evitar desalineaciones */
+  .proceso-timeline::before { display: none; }
+
+  /* Mejorar el target táctil */
+  .paso { padding: 0 0; }
+  .paso-numero { width: 64px; height: 64px; }
+  .paso-icon { top: 82px; }
   
   /* (Sin grid de contacto) */
   

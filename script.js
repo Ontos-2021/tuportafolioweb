@@ -166,6 +166,37 @@ document.addEventListener('DOMContentLoaded', function() {
     document.head.appendChild(style);
 
     // (Se eliminó el formulario de contacto: solo CTA de WhatsApp)
+
+    // Metodología: activar paso en hover/click/touch/teclado
+    const pasos = document.querySelectorAll('.proceso .paso');
+    if (pasos.length) {
+        const setActivePaso = (target) => {
+            pasos.forEach(p => p.classList.remove('active'));
+            target.classList.add('active');
+        };
+
+        pasos.forEach(paso => {
+            // Accesibilidad mínima
+            paso.setAttribute('tabindex', '0');
+            paso.setAttribute('role', 'button');
+
+            // Desktop hover
+            paso.addEventListener('mouseenter', () => setActivePaso(paso));
+            paso.addEventListener('focusin', () => setActivePaso(paso));
+
+            // Tap/click
+            paso.addEventListener('click', () => setActivePaso(paso));
+            paso.addEventListener('touchstart', () => setActivePaso(paso), { passive: true });
+
+            // Teclado
+            paso.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setActivePaso(paso);
+                }
+            });
+        });
+    }
 });
 
 // Animación para hacer aparecer elementos al hacer scroll (consolidada)
