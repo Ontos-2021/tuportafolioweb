@@ -147,7 +147,6 @@ button, input, select, textarea {
 /* ========== BOTONES ========== */
 .btn-principal,
 .btn-secundario,
-.btn-paquete,
 .btn-contacto {
   display: inline-flex;
   align-items: center;
@@ -183,17 +182,6 @@ button, input, select, textarea {
 .btn-secundario:hover {
   background-color: var(--color-primary);
   color: white;
-}
-
-.btn-paquete {
-  background-color: var(--color-primary);
-  color: white;
-  width: 100%;
-  margin-top: auto;
-}
-
-.btn-paquete:hover {
-  background-color: var(--color-primary-dark);
 }
 
 .btn-contacto {
@@ -560,7 +548,7 @@ button, input, select, textarea {
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: 0 1.5rem;
+  padding: 6rem 1.5rem 0;
   outline: none; /* para focus */
 }
 
@@ -605,13 +593,15 @@ button, input, select, textarea {
 
 .paso-icon {
   position: absolute;
-  top: 75px;
+  top: -35px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 2.2rem;
   color: var(--color-primary);
   opacity: 0;
   transition: opacity var(--transition-normal), transform var(--transition-normal);
+  pointer-events: none;
+  z-index: 10;
 }
 
 .paso.active .paso-icon,
@@ -765,111 +755,6 @@ button, input, select, textarea {
   margin-bottom: var(--spacing-l);
 }
 
-/* ========== PAQUETES SECTION ========== */
-.paquetes {
-  padding: var(--spacing-xxl) 0;
-  background-color: white;
-}
-
-.paquetes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 3rem;
-}
-
-.paquete-card {
-  background-color: var(--color-light);
-  border-radius: var(--border-radius-l);
-  padding: 4rem 3rem;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition-normal);
-  border: 1px solid var(--color-gray-light);
-  position: relative;
-  text-align: center;
-}
-
-.paquete-card:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-md);
-}
-
-.paquete-card h3 {
-  font-family: var(--font-heading);
-  font-size: 2.4rem;
-  font-weight: 600;
-  color: var(--color-dark);
-  margin-bottom: var(--spacing-m);
-}
-
-.precio {
-  margin-bottom: var(--spacing-l);
-}
-
-.currency {
-  font-size: 2.4rem;
-  font-weight: 600;
-  color: var(--color-dark);
-  vertical-align: super;
-}
-
-.amount {
-  font-family: var(--font-heading);
-  font-size: 5rem;
-  font-weight: 700;
-  color: var(--color-dark);
-  line-height: 1;
-}
-
-.descripcion {
-  font-size: 1.6rem;
-  color: var(--color-gray-medium);
-  margin-bottom: var(--spacing-l);
-}
-
-.paquete-features {
-  text-align: left;
-  margin-bottom: var(--spacing-l);
-}
-
-.paquete-features li {
-  margin-bottom: var(--spacing-m);
-  font-size: 1.6rem;
-  position: relative;
-  padding-left: 2.5rem;
-}
-
-.paquete-features li i {
-  position: absolute;
-  left: 0;
-  top: 0.4rem;
-  color: var(--color-success);
-}
-
-.popular {
-  border-color: var(--color-primary);
-  background-color: white;
-  transform: scale(1.05);
-  box-shadow: var(--shadow-md);
-  z-index: 2;
-}
-
-.popular:hover {
-  transform: translateY(-10px) scale(1.05);
-}
-
-.popular-badge {
-  position: absolute;
-  top: -1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--color-secondary);
-  color: white;
-  font-size: 1.3rem;
-  font-weight: 600;
-  padding: 0.5rem 1.5rem;
-  border-radius: 3rem;
-}
-
 /* ========== TESTIMONIOS SECTION ========== */
 .testimonios {
   padding: var(--spacing-xxl) 0;
@@ -966,103 +851,6 @@ button, input, select, textarea {
 .dot.active {
   background-color: var(--color-primary);
   transform: scale(1.2);
-}
-
-/* ========== CONTACTO SECTION ========== */
-.contacto {
-  padding: var(--spacing-xxl) 0;
-  background-color: white;
-}
-
-/* Layout simplificado de contacto (solo WhatsApp) */
-.contacto-whatsapp {
-  max-width: 720px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-/* (Se removió el formulario de contacto) */
-
-/* Encabezados de tarjetas informativas */
-
-/* (Sin insignia de formulario) */
-
-/* (Título se gestiona con .info-card h3) */
-
-/* (Se eliminó .contacto-form) */
-
-/* (Se eliminó .form-row) */
-
-/* (Se eliminó .form-group) */
-
-/* (Se eliminó .form-group.full-width) */
-
-/* (Se eliminó label de formulario) */
-
-/* (Se eliminaron campos de formulario) */
-
-/* (Sin estilos de focus para formulario) */
-
-/* (Se eliminó .form-footer) */
-
-/* (Sin .btn-submit) */
-
-/* (Sin icono de envío) */
-
-/* (Sin disclaimer de formulario) */
-
-/* (N/A) */
-
-.info-card {
-  background-color: var(--color-dark-blue);
-  color: white;
-  border-radius: var(--border-radius-l);
-  padding: 3.5rem;
-  box-shadow: var(--shadow-md);
-}
-
-.info-card h3 {
-  font-family: var(--font-heading);
-  font-size: 2.2rem;
-  font-weight: 600;
-  margin-bottom: var(--spacing-s);
-}
-
-.info-card p {
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: var(--spacing-l);
-  font-size: 1.6rem;
-}
-
-.btn-call {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  margin-bottom: var(--spacing-l);
-}
-
-.btn-call:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.separator {
-  height: 1px;
-  background-color: rgba(255, 255, 255, 0.1);
-  margin: var(--spacing-l) 0;
-}
-
-/* (Se simplificó contacto directo a un CTA) */
-
-.info-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: var(--spacing-m);
-}
-
-.info-item i {
-  font-size: 1.8rem;
-  color: var(--color-primary);
-  margin-right: var(--spacing-m);
 }
 
 .info-card h4 {
@@ -1286,7 +1074,6 @@ button, input, select, textarea {
   
   .servicios-grid, 
   .galeria-grid, 
-  .paquetes-grid, 
   .testimonios-slider {
     grid-template-columns: 1fr;
   }
@@ -1302,7 +1089,7 @@ button, input, select, textarea {
   /* Mejorar el target táctil */
   .paso { padding: 0 0; }
   .paso-numero { width: 64px; height: 64px; }
-  .paso-icon { top: 82px; }
+  .paso-icon { top: -30px; }
   
   /* (Sin grid de contacto) */
   
@@ -1343,14 +1130,12 @@ button, input, select, textarea {
   
   .btn-principal,
   .btn-secundario,
-  .btn-paquete,
   .btn-contacto {
     padding: 1.2rem 2rem;
     font-size: 1.4rem;
   }
   
   .servicio-card,
-  .paquete-card,
   .testimonio {
     padding: 2.5rem;
   }
@@ -1375,7 +1160,7 @@ button, input, select, textarea {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.hero-content, .servicio-card, .paso, .paquete-card, .testimonio, .contacto-form-container, .info-card {
+.hero-content, .servicio-card, .paso, .testimonio, .contacto-form-container, .info-card {
   animation: fadeIn 0.8s ease forwards;
 }
 
@@ -1384,5 +1169,49 @@ button, input, select, textarea {
 .paso:nth-child(2) { animation-delay: 0.2s; }
 .paso:nth-child(3) { animation-delay: 0.4s; }
 .paso:nth-child(4) { animation-delay: 0.6s; }
-.paquete-card:nth-child(2) { animation-delay: 0.2s; }
-.paquete-card:nth-child(3) { animation-delay: 0.4s; }
+
+/* ========== CONTACTO MEJORADO ========== */
+.contacto {
+  background-color: var(--color-light);
+}
+
+.contacto-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 2.5rem;
+  align-items: start;
+  margin-top: var(--spacing-l);
+}
+
+.contacto-card {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: var(--border-radius-l);
+  box-shadow: var(--shadow-sm);
+}
+
+.contacto-cta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.contacto-list {
+  margin: var(--spacing-m) 0;
+  font-size: 1.4rem;
+  color: var(--color-gray-dark);
+}
+
+.contacto-socials { margin-top: var(--spacing-m); }
+
+.whatsapp-cta { margin-top: var(--spacing-l); }
+
+.muted { color: var(--color-gray-medium); }
+.small-note { font-size: 1.2rem; color: var(--color-gray-medium); margin-top: var(--spacing-s); }
+
+@media (max-width: 768px) {
+  .contacto-grid { grid-template-columns: 1fr; }
+  .contacto-cta { margin-top: 1rem; }
+}
+.paso:nth-child(4) { animation-delay: 0.6s; }

@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Animación de elementos al hacer scroll
-    const animatedElements = document.querySelectorAll('.servicio-card, .paso, .paquete-card, .proyecto, .testimonio');
+    const animatedElements = document.querySelectorAll('.servicio-card, .paso, .proyecto, .testimonio, .info-card');
     
     const observerOptions = {
         threshold: 0.2,
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.observe(section);
     });
 
-    const cards = document.querySelectorAll('.servicio-card, .paso, .proyecto, .testimonio');
+    const cards = document.querySelectorAll('.servicio-card, .paso, .proyecto, .testimonio, .info-card');
     cards.forEach((card, index) => {
         card.style.transitionDelay = `${index * 0.1}s`;
         card.classList.add('fade-in');

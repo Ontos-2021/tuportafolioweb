@@ -6,13 +6,13 @@ Project type and purpose
 
 Architecture and data flow
 - Sections in `index.html`: header (sticky), hero, servicios, proceso, galeria (filterable), testimonios, contacto (CTA WhatsApp), footer, CTA.
-- `styles.css` defines a design system in `:root` (CSS variables for color, typography, spacing), component classes (e.g., `.servicio-card`, `.paquete-card`) and breakpoints (1024, 768, 480).
+- `styles.css` define un sistema de diseño en `:root` (variables de color, tipografía, espaciado), clases de componentes (p.ej., `.servicio-card`, `.paso`, `.proyecto`, `.info-card`) y breakpoints (1024, 768, 480).
 - `script.js` is vanilla JS. Patterns used:
 	- DOMContentLoaded wrapper; query elements once, then attach listeners.
 	- Smooth scroll for internal anchors with fixed-header offset (100px) and `header.scrolled` toggle on scroll (throttled via timeout).
-	- Gallery filtering via `[data-category]` + `.filtro-btn[data-filter]`, using a `.fade-out` class and 300ms timeout.
+	- Gallery filtering via `[data-category]` + `.filtro-btn[data-filter]` (categorías `portafolios|landing|desarrollo|apps`), usando la clase `.fade-out` con timeout de 300 ms.
 	- Animated stats in hero: `IntersectionObserver` (threshold 0.5) triggers `animateNumbers()` once; easing is `easeOutCubic`.
-		- Scroll-in animations: elements get `.animate-on-scroll` then `.element-visible` via an observer; a consolidated observer applies `.fade-in.visible` a secciones y cards.
+		- Scroll-in animations: un único observer añade `.fade-in.visible` a secciones y cards tras aplicar `.animate-on-scroll`.
 
 Repo-specific conventions
 - Language: all UI text is Spanish; keep diacritics (á, é, í, ó, ú, ñ) and tone consistent.
@@ -27,7 +27,7 @@ Integration points and dependencies
 
 Common tasks (how to do them here)
 - Add a new section: create a `<section id="...">` in `index.html`; add styles near the matching section header in `styles.css`; include the section class in the animated selectors in `script.js` so it fades in on scroll.
-- Add a gallery item: duplicate a `.proyecto` card in `#galeria`, set `data-category` to `portafolios|landing|desarrollo`, update image and text. Filtering will work automatically.
+- Add a gallery item: duplica una tarjeta `.proyecto` dentro de la sección con id `galeria`, ajusta `data-category` a `portafolios|landing|desarrollo|apps`, actualiza imagen y textos. El filtro funciona automáticamente.
 - Tweak anchor scrolling: update the `offsetTop - 100` constant in `script.js` if header height changes.
 - Personalizar WhatsApp CTA: edita el enlace de `#contacto` (y el botón flotante si aplica) con el número y mensaje correcto.
 
