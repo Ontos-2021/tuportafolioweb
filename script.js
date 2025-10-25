@@ -79,7 +79,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const stats = document.querySelectorAll('.number');
         
         stats.forEach(stat => {
-            const targetValue = parseInt(stat.textContent);
+            const originalText = stat.textContent;
+            const numberMatch = originalText.match(/\d+/);
+            
+            if (!numberMatch) return; // Si no hay número, no animar
+            
+            const targetValue = parseInt(numberMatch[0]);
+            const prefix = originalText.substring(0, numberMatch.index);
+            const suffix = originalText.substring(numberMatch.index + numberMatch[0].length);
+            
             const duration = 2000; // duración en milisegundos
             const startTime = Date.now();
             const startValue = 0;
@@ -90,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const easedProgress = easeOutCubic(progress);
                 const currentValue = Math.floor(startValue + (targetValue - startValue) * easedProgress);
                 
-                stat.textContent = currentValue + (stat.textContent.includes('+') ? '+' : '');
+                stat.textContent = prefix + currentValue + suffix;
                 
                 if (progress < 1) {
                     requestAnimationFrame(updateCount);
