@@ -20,6 +20,57 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Animación de header al hacer scroll
     const header = document.querySelector('.header-main');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+
+    // Navegación móvil: mostrar/ocultar menú accesible
+    if (menuToggle && mainNav) {
+        menuToggle.addEventListener('click', (event) => {
+            event.stopPropagation();
+            toggleMenu();
+        });
+
+        mainNav.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+
+        mainNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => toggleMenu(false));
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                toggleMenu(false);
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                toggleMenu(false);
+            }
+        });
+
+        function toggleMenu(forceState = null) {
+            const isOpen = mainNav.classList.contains('open');
+            const shouldOpen = forceState !== null ? forceState : !isOpen;
+
+            mainNav.classList.toggle('open', shouldOpen);
+            menuToggle.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+            document.body.classList.toggle('menu-open', shouldOpen);
+
+            if (shouldOpen) {
+                document.addEventListener('click', handleOutsideClick);
+            } else {
+                document.removeEventListener('click', handleOutsideClick);
+            }
+        }
+
+        function handleOutsideClick(event) {
+            if (!mainNav.contains(event.target) && !menuToggle.contains(event.target)) {
+                toggleMenu(false);
+            }
+        }
+    }
     
     // Mejora de rendimiento con throttling para el evento scroll
     let scrollTimeout;
