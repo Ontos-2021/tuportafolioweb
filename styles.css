@@ -849,10 +849,25 @@ button, input, select, textarea {
   padding: 3rem;
   opacity: 0;
   transition: opacity 0.4s ease;
+  pointer-events: none; /* Permitir clicks en la imagen cuando el overlay está oculto */
 }
 
 .proyecto:hover .overlay {
   opacity: 1;
+  pointer-events: auto; /* Habilitar clicks en el overlay cuando esté visible */
+}
+
+/* En móvil, mostrar siempre el overlay para que los enlaces sean accesibles */
+@media (max-width: 768px) {
+  .overlay {
+    opacity: 1;
+    pointer-events: auto;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+  }
+  
+  .proyecto-info {
+    width: 100%;
+  }
 }
 
 .proyecto-info {
