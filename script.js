@@ -175,35 +175,98 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // (Se eliminó el formulario de contacto: solo CTA de WhatsApp)
 
-    // Metodología: activar paso en hover/click/touch/teclado
+    // Metodología: activar paso dinámicamente
     const pasos = document.querySelectorAll('.proceso .paso');
     if (pasos.length) {
-        const setActivePaso = (target) => {
-            pasos.forEach(p => p.classList.remove('active'));
-            target.classList.add('active');
-        };
+        const isMobile = window.innerWidth <= 768;
 
-        pasos.forEach(paso => {
-            // Accesibilidad mínima
-            paso.setAttribute('tabindex', '0');
-            paso.setAttribute('role', 'button');
+        if (isMobile) {
+            // En móvil, activar con IntersectionObserver al hacer scroll
+            const pasoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        pasos.forEach(p => p.classList.remove('active'));
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.6, rootMargin: '-30% 0px -30% 0px' });
 
-            // Desktop hover
-            paso.addEventListener('mouseenter', () => setActivePaso(paso));
-            paso.addEventListener('focusin', () => setActivePaso(paso));
+            pasos.forEach(paso => pasoObserver.observe(paso));
+        } else {
+            // En desktop, activar con hover
+            const setActivePaso = (target) => {
+                pasos.forEach(p => p.classList.remove('active'));
+                target.classList.add('active');
+            };
 
-            // Tap/click
-            paso.addEventListener('click', () => setActivePaso(paso));
-            paso.addEventListener('touchstart', () => setActivePaso(paso), { passive: true });
+            pasos.forEach(paso => {
+                paso.setAttribute('tabindex', '0');
+                paso.setAttribute('role', 'button');
 
-            // Teclado
-            paso.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    setActivePaso(paso);
+                paso.addEventListener('mouseenter', () => setActivePaso(paso));
+                paso.addEventListener('focusin', () => setActivePaso(paso));
+                paso.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setActivePaso(paso);
+                    }
+                });
+            });
+        }
+    }
+
+    // Servicios: manejar featured card dinámicamente (hover en desktop, tap en móvil)
+    const servicioCards = document.querySelectorAll('.servicio-card');
+    if (servicioCards.length) {
+        let isMobile = window.innerWidth <= 768;
+        
+        // Detectar cambios de tamaño de pantalla
+        window.addEventListener('resize', () => {
+            isMobile = window.innerWidth <= 768;
+        });
+
+        servicioCards.forEach(card => {
+            // Desktop: hover para cambiar featured
+            card.addEventListener('mouseenter', () => {
+                if (!isMobile) {
+                    servicioCards.forEach(c => c.classList.remove('featured'));
+                    card.classList.add('featured');
+                }
+            });
+
+            // Móvil: usar click en lugar de touchstart para evitar conflictos con scroll
+            card.addEventListener('click', (e) => {
+                if (isMobile) {
+                    const wasFeatured = card.classList.contains('featured');
+                    servicioCards.forEach(c => c.classList.remove('featured'));
+                    card.classList.add('featured');
+                    
+                    // Si no estaba featured, prevenir navegación accidental
+                    if (!wasFeatured) {
+                        e.preventDefault();
+                    }
                 }
             });
         });
+
+        // Desktop: restaurar primer card como featured cuando mouse sale de la sección
+        const serviciosSection = document.querySelector('.servicios');
+        if (serviciosSection) {
+            let mouseLeaveTimeout;
+            
+            serviciosSection.addEventListener('mouseleave', () => {
+                if (!isMobile) {
+                    mouseLeaveTimeout = setTimeout(() => {
+                        servicioCards.forEach(c => c.classList.remove('featured'));
+                        servicioCards[0]?.classList.add('featured');
+                    }, 300);
+                }
+            });
+
+            serviciosSection.addEventListener('mouseenter', () => {
+                clearTimeout(mouseLeaveTimeout);
+            });
+        }
     }
 });
 
