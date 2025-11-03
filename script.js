@@ -165,6 +165,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Observer para activar la animación cuando el elemento sea visible
+    // Reduced threshold and expanded bottom rootMargin so stats start animating
+    // antes (aparecen más pronto al scrollear) tanto en mobile como desktop.
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -172,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.15, rootMargin: '0px 0px -120px 0px' });
     
     const heroStats = document.querySelector('.hero-stats');
     if (heroStats) {
@@ -182,9 +184,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Animación de elementos al hacer scroll
     const animatedElements = document.querySelectorAll('.servicio-card, .paso, .proyecto, .testimonio, .info-card');
     
+    // Más agresivo: detectar elementos con menos visibilidad y con margen inferior
+    // negativo para que se activen antes al acercarse al viewport.
     const observerOptions = {
-        threshold: 0.2,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.05,
+        rootMargin: '0px 0px -160px 0px'
     };
     
     const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
@@ -206,17 +210,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // Añadir estilos dinámicos para las animaciones de scroll
     const style = document.createElement('style');
     style.innerHTML = `
+        /* Animaciones más rápidas y desplazamiento menor para sensación más ágil */
         .animate-on-scroll {
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
-        
+
         .animate-on-scroll.element-visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
+        /* Reglas paralelas para el sistema de 'fade-in' usado más abajo */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .fade-out {
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -323,7 +340,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Animación para hacer aparecer elementos al hacer scroll (consolidada)
 document.addEventListener('DOMContentLoaded', () => {
-    const observerOptions = { threshold: 0.25 };
+    // Reveal observer: make it trigger earlier so sections/cards become visible
+    // antes, notando que un threshold pequeño + rootMargin negativo obliga a que
+    // la clase 'visible' se añada cuando el usuario aún no ha llegado totalmente
+    // al elemento.
+    const observerOptions = { threshold: 0.05, rootMargin: '0px 0px -140px 0px' };
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
