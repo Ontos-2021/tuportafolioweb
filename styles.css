@@ -867,11 +867,26 @@ button, input, select, textarea {
   width: 100%;
   height: 280px;
   object-fit: cover;
-  transition: transform 0.75s ease;
+  transition: transform 0.75s ease, filter 0.4s ease;
 }
 
 .proyecto:hover img {
   transform: scale(1.05);
+}
+
+/* En mobile, cuando está activa la tarjeta, aplicar blur y oscurecer la imagen */
+@media (max-width: 768px) {
+  .proyecto.active img {
+    filter: brightness(0.5) blur(2px);
+  }
+}
+
+/* En desktop, al hacer hover también oscurecer un poco */
+@media (min-width: 769px) {
+  .proyecto:hover img {
+    transform: scale(1.05);
+    filter: brightness(0.5) blur(2px);
+  }
 }
 
 .overlay {
@@ -880,26 +895,26 @@ button, input, select, textarea {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.2) 100%);
   display: flex;
   align-items: flex-end;
   padding: 3rem;
   opacity: 0;
   transition: opacity 0.4s ease;
-  pointer-events: none; /* Permitir clicks en la imagen cuando el overlay está oculto */
+  pointer-events: none;
 }
 
 .proyecto:hover .overlay {
   opacity: 1;
-  pointer-events: auto; /* Habilitar clicks en el overlay cuando esté visible */
+  pointer-events: auto;
 }
 
-/* En móvil, mostrar siempre el overlay para que los enlaces sean accesibles */
+/* En móvil, comportamiento mejorado con tap para revelar */
 @media (max-width: 768px) {
-  .overlay {
+  /* Al hacer tap/touch, mostrar overlay completo */
+  .proyecto.active .overlay {
     opacity: 1;
     pointer-events: auto;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
   }
   
   .proyecto-info {

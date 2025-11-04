@@ -125,6 +125,51 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Manejo de tap en tarjetas de proyectos para mobile
+    const isMobileDevice = () => window.innerWidth <= 768;
+    
+    proyectos.forEach(proyecto => {
+        // Prevenir comportamiento por defecto en mobile para controlar la interacción
+        proyecto.addEventListener('click', (e) => {
+            if (isMobileDevice()) {
+                const isActive = proyecto.classList.contains('active');
+                
+                // Si la tarjeta no está activa, activarla y prevenir navegación
+                if (!isActive) {
+                    e.preventDefault();
+                    
+                    // Desactivar todas las demás tarjetas
+                    proyectos.forEach(p => p.classList.remove('active'));
+                    
+                    // Activar la tarjeta actual
+                    proyecto.classList.add('active');
+                } 
+                // Si ya está activa, permitir que el link funcione normalmente
+            }
+        });
+    });
+    
+    // Cerrar tarjetas activas al hacer scroll en mobile
+    let scrollTimeout2;
+    window.addEventListener('scroll', () => {
+        if (isMobileDevice()) {
+            clearTimeout(scrollTimeout2);
+            scrollTimeout2 = setTimeout(() => {
+                proyectos.forEach(p => p.classList.remove('active'));
+            }, 150);
+        }
+    });
+    
+    // Cerrar tarjetas activas al hacer tap fuera de ellas
+    document.addEventListener('click', (e) => {
+        if (isMobileDevice()) {
+            const clickedProyecto = e.target.closest('.proyecto');
+            if (!clickedProyecto) {
+                proyectos.forEach(p => p.classList.remove('active'));
+            }
+        }
+    });
+    
     // Contador de estadísticas animado
     function animateNumbers() {
         const stats = document.querySelectorAll('.number');
@@ -165,8 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Observer para activar la animación cuando el elemento sea visible
-    // Reduced threshold and expanded bottom rootMargin so stats start animating
-    // antes (aparecen más pronto al scrollear) tanto en mobile como desktop.
+    // Activar las estadísticas apenas sean visibles en el viewport
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -174,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.15, rootMargin: '0px 0px -120px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px 50px 0px' });
     
     const heroStats = document.querySelector('.hero-stats');
     if (heroStats) {
@@ -184,11 +228,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Animación de elementos al hacer scroll
     const animatedElements = document.querySelectorAll('.servicio-card, .paso, .proyecto, .testimonio, .info-card');
     
-    // Más agresivo: detectar elementos con menos visibilidad y con margen inferior
-    // negativo para que se activen antes al acercarse al viewport.
+    // Activar animaciones antes: cuando el elemento está a punto de entrar al viewport
     const observerOptions = {
         threshold: 0.05,
-        rootMargin: '0px 0px -160px 0px'
+        rootMargin: '0px 0px 100px 0px'
     };
     
     const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
@@ -283,14 +326,49 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Servicios: manejar featured card dinámicamente (hover en desktop, tap en móvil)
+    // Servicios: manejar featured card dinámicamente (hover en desktop, scroll en móvil)
     const servicioCards = document.querySelectorAll('.servicio-card');
     if (servicioCards.length) {
         let isMobile = window.innerWidth <= 768;
+        let mobileServiciosObserver = null;
+
+        const observeServiciosOnMobile = () => {
+            if (mobileServiciosObserver || !isMobile) return;
+            // Activar la card "featured" según cuál esté más visible al scrollear
+            mobileServiciosObserver = new IntersectionObserver((entries) => {
+                // Elegir la entrada con mayor intersección visible
+                let best = null;
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (!best || entry.intersectionRatio > best.intersectionRatio) {
+                            best = entry;
+                        }
+                    }
+                });
+                if (best) {
+                    servicioCards.forEach(c => c.classList.remove('featured'));
+                    best.target.classList.add('featured');
+                }
+            }, { threshold: [0.35, 0.5, 0.65, 0.8, 1], rootMargin: '-20% 0px -20% 0px' });
+
+            servicioCards.forEach(card => mobileServiciosObserver.observe(card));
+        };
+
+        const unobserveServiciosOnMobile = () => {
+            if (mobileServiciosObserver) {
+                mobileServiciosObserver.disconnect();
+                mobileServiciosObserver = null;
+            }
+        };
         
-        // Detectar cambios de tamaño de pantalla
+        // Detectar cambios de tamaño de pantalla y activar/desactivar observer móvil
         window.addEventListener('resize', () => {
             isMobile = window.innerWidth <= 768;
+            if (isMobile) {
+                observeServiciosOnMobile();
+            } else {
+                unobserveServiciosOnMobile();
+            }
         });
 
         servicioCards.forEach(card => {
@@ -302,20 +380,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Móvil: usar click en lugar de touchstart para evitar conflictos con scroll
+            // Móvil: click como fallback (por si el usuario quiere fijar una card)
             card.addEventListener('click', (e) => {
                 if (isMobile) {
                     const wasFeatured = card.classList.contains('featured');
                     servicioCards.forEach(c => c.classList.remove('featured'));
                     card.classList.add('featured');
-                    
-                    // Si no estaba featured, prevenir navegación accidental
-                    if (!wasFeatured) {
-                        e.preventDefault();
-                    }
+                    // Evitar navegación accidental en el primer toque
+                    if (!wasFeatured) e.preventDefault();
                 }
             });
         });
+
+        // Inicializar según el entorno actual
+        if (isMobile) {
+            observeServiciosOnMobile();
+        }
 
         // Desktop: restaurar primer card como featured cuando mouse sale de la sección
         const serviciosSection = document.querySelector('.servicios');
@@ -340,11 +420,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Animación para hacer aparecer elementos al hacer scroll (consolidada)
 document.addEventListener('DOMContentLoaded', () => {
-    // Reveal observer: make it trigger earlier so sections/cards become visible
-    // antes, notando que un threshold pequeño + rootMargin negativo obliga a que
-    // la clase 'visible' se añada cuando el usuario aún no ha llegado totalmente
-    // al elemento.
-    const observerOptions = { threshold: 0.05, rootMargin: '0px 0px -140px 0px' };
+    // Reveal observer: activar cuando los elementos están a punto de aparecer
+    // Margen positivo para que empiecen a animarse antes de entrar completamente al viewport
+    const observerOptions = { threshold: 0.05, rootMargin: '0px 0px 150px 0px' };
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
