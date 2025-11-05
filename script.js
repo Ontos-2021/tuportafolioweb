@@ -228,10 +228,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Animación de elementos al hacer scroll
     const animatedElements = document.querySelectorAll('.servicio-card, .paso, .proyecto, .testimonio, .info-card');
     
-    // Activar animaciones antes: cuando el elemento está a punto de entrar al viewport
+    // Activar animaciones antes: 250px antes de entrar al viewport para mayor anticipación
     const observerOptions = {
         threshold: 0.05,
-        rootMargin: '0px 0px 100px 0px'
+        rootMargin: '0px 0px 250px 0px'
     };
     
     const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
@@ -289,40 +289,127 @@ document.addEventListener('DOMContentLoaded', function() {
     // Metodología: activar paso dinámicamente
     const pasos = document.querySelectorAll('.proceso .paso');
     if (pasos.length) {
-        const isMobile = window.innerWidth <= 768;
+        let isMobile = window.innerWidth <= 768;
+        let mobilePasoObserver = null;
 
-        if (isMobile) {
+        const observePasosOnMobile = () => {
+            if (mobilePasoObserver || !isMobile) return;
             // En móvil, activar con IntersectionObserver al hacer scroll
-            const pasoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
+            mobilePasoObserver = new IntersectionObserver((entries) => {
+                // Buscar entre TODOS los pasos observados (no solo los entries actuales)
+                // para encontrar el que tiene mayor visibilidad en este momento
+                let bestPaso = null;
+                let bestRatio = 0;
+                
+                pasos.forEach(paso => {
+                    const rect = paso.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+                    
+                    // Calcular qué porcentaje del paso está en el área visible central
+                    const pasoTop = rect.top;
+                    const pasoBottom = rect.bottom;
+                    const pasoHeight = rect.height;
+                    
+                    // Zona "activa" central: 20% superior y 20% inferior removidos
+                    const activeZoneTop = windowHeight * 0.2;
+                    const activeZoneBottom = windowHeight * 0.8;
+                    
+                    // Calcular intersección con la zona activa
+                    const visibleTop = Math.max(pasoTop, activeZoneTop);
+                    const visibleBottom = Math.min(pasoBottom, activeZoneBottom);
+                    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+                    
+                    // Ratio de visibilidad: cuánto del paso está en la zona activa
+                    const visibilityRatio = visibleHeight / pasoHeight;
+                    
+                    if (visibilityRatio > bestRatio) {
+                        bestRatio = visibilityRatio;
+                        bestPaso = paso;
+                    }
+                });
+                
+                // Solo cambiar si hay un paso claramente más visible (threshold mínimo)
+                if (bestPaso && bestRatio > 0.3) {
+                    const currentActive = document.querySelector('.proceso .paso.active');
+                    if (currentActive !== bestPaso) {
                         pasos.forEach(p => p.classList.remove('active'));
-                        entry.target.classList.add('active');
+                        bestPaso.classList.add('active');
                     }
-                });
-            }, { threshold: 0.6, rootMargin: '-30% 0px -30% 0px' });
-
-            pasos.forEach(paso => pasoObserver.observe(paso));
-        } else {
-            // En desktop, activar con hover
-            const setActivePaso = (target) => {
-                pasos.forEach(p => p.classList.remove('active'));
-                target.classList.add('active');
-            };
-
-            pasos.forEach(paso => {
-                paso.setAttribute('tabindex', '0');
-                paso.setAttribute('role', 'button');
-
-                paso.addEventListener('mouseenter', () => setActivePaso(paso));
-                paso.addEventListener('focusin', () => setActivePaso(paso));
-                paso.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        setActivePaso(paso);
-                    }
-                });
+                }
+            }, { 
+                threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1], 
+                rootMargin: '0px'
             });
+
+            pasos.forEach(paso => mobilePasoObserver.observe(paso));
+        };
+
+        const unobservePasosOnMobile = () => {
+            if (mobilePasoObserver) {
+                mobilePasoObserver.disconnect();
+                mobilePasoObserver = null;
+            }
+        };
+
+        // Detectar cambios de tamaño de pantalla
+        window.addEventListener('resize', () => {
+            isMobile = window.innerWidth <= 768;
+            if (isMobile) {
+                observePasosOnMobile();
+            } else {
+                unobservePasosOnMobile();
+            }
+        });
+
+        // Desktop: setup de listeners
+        const setActivePaso = (target) => {
+            pasos.forEach(p => p.classList.remove('active'));
+            target.classList.add('active');
+        };
+
+        pasos.forEach(paso => {
+            paso.setAttribute('tabindex', '0');
+            paso.setAttribute('role', 'button');
+
+            // Desktop: hover fija el 'active' temporalmente, similar a Servicios
+            paso.addEventListener('mouseenter', () => {
+                if (!isMobile) {
+                    setActivePaso(paso);
+                }
+            });
+            // Teclado: activar al enfocar y limpiar al salir
+            paso.addEventListener('focusin', () => setActivePaso(paso));
+            paso.addEventListener('focusout', () => {
+                pasos.forEach(p => p.classList.remove('active'));
+            });
+            paso.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setActivePaso(paso);
+                }
+            });
+        });
+
+        // Desktop: restaurar primer paso como activo cuando mouse sale de la sección
+        const procesoSection = document.querySelector('.proceso');
+        if (procesoSection) {
+            let mouseLeaveTimeoutProceso;
+            procesoSection.addEventListener('mouseleave', () => {
+                if (!isMobile) {
+                    mouseLeaveTimeoutProceso = setTimeout(() => {
+                        pasos.forEach(p => p.classList.remove('active'));
+                        pasos[0]?.classList.add('active');
+                    }, 300);
+                }
+            });
+            procesoSection.addEventListener('mouseenter', () => {
+                clearTimeout(mouseLeaveTimeoutProceso);
+            });
+        }
+
+        // Inicializar según el entorno actual
+        if (isMobile) {
+            observePasosOnMobile();
         }
     }
 
@@ -421,8 +508,8 @@ document.addEventListener('DOMContentLoaded', function() {
 // Animación para hacer aparecer elementos al hacer scroll (consolidada)
 document.addEventListener('DOMContentLoaded', () => {
     // Reveal observer: activar cuando los elementos están a punto de aparecer
-    // Margen positivo para que empiecen a animarse antes de entrar completamente al viewport
-    const observerOptions = { threshold: 0.05, rootMargin: '0px 0px 150px 0px' };
+    // Margen positivo aumentado para que empiecen a animarse antes (250px antes de entrar)
+    const observerOptions = { threshold: 0.05, rootMargin: '0px 0px 250px 0px' };
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -440,7 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const cards = document.querySelectorAll('.servicio-card, .paso, .proyecto, .testimonio, .info-card');
     cards.forEach((card, index) => {
-        card.style.transitionDelay = `${index * 0.1}s`;
+        card.style.transitionDelay = `${index * 0.08}s`; // Reducido de 0.1s a 0.08s para más rapidez
         card.classList.add('fade-in');
         revealObserver.observe(card);
     });
