@@ -225,65 +225,6 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(heroStats);
     }
     
-    // Animación de elementos al hacer scroll
-    const animatedElements = document.querySelectorAll('.servicio-card, .paso, .proyecto, .testimonio, .info-card');
-    
-    // Activar animaciones antes: 250px antes de entrar al viewport para mayor anticipación
-    const observerOptions = {
-        threshold: 0.05,
-        rootMargin: '0px 0px 250px 0px'
-    };
-    
-    const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) {
-                return;
-            } else {
-                entry.target.classList.add('element-visible');
-                appearOnScroll.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    
-    animatedElements.forEach(el => {
-        el.classList.add('animate-on-scroll');
-        appearOnScroll.observe(el);
-    });
-    
-    // Añadir estilos dinámicos para las animaciones de scroll
-    const style = document.createElement('style');
-    style.innerHTML = `
-        /* Animaciones más rápidas y desplazamiento menor para sensación más ágil */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .animate-on-scroll.element-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Reglas paralelas para el sistema de 'fade-in' usado más abajo */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .fade-out {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-    `;
-    document.head.appendChild(style);
-
     // (Se eliminó el formulario de contacto: solo CTA de WhatsApp)
 
     // Metodología: activar paso dinámicamente
