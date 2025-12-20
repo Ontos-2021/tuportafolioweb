@@ -460,7 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    const sections = document.querySelectorAll('section');
+    const sections = document.querySelectorAll('.section-header');
     sections.forEach(section => {
         section.classList.add('fade-in');
         revealObserver.observe(section);
