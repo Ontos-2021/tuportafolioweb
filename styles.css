@@ -435,6 +435,44 @@ button, input, select, textarea {
   border-radius: 2px;
 }
 
+/* Hero variant toggle (Option A / B) */
+.hero-variant-toggle {
+  display: inline-flex;
+  gap: 0.6rem;
+  margin-bottom: var(--spacing-s);
+}
+.variant-btn {
+  background: transparent;
+  border: 1px solid var(--color-gray-light);
+  padding: 0.45rem 0.8rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--color-gray-dark);
+}
+.variant-btn.active,
+.variant-btn:focus {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+/* Variant-specific styling */
+.hero.hero--option-a .hero-content h2 {
+  color: var(--color-dark);
+}
+.hero.hero--option-a .hero-content .highlight {
+  color: var(--color-primary);
+}
+
+.hero.hero--option-b .hero-content h2 {
+  color: var(--color-primary-dark);
+  font-style: normal;
+}
+.hero.hero--option-b .hero-content .highlight {
+  color: var(--color-secondary);
+}
+
 .hero-content p {
   font-size: 1.9rem;
   font-weight: 400;
@@ -511,14 +549,16 @@ button, input, select, textarea {
 
 .bg-shape {
   position: absolute;
-  width: 500px;
-  height: 500px;
+  width: 700px;
+  height: 700px;
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   border-radius: 50%;
-  top: -100px;
-  right: -200px;
-  opacity: 0.1;
-  z-index: 1;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  transform: translate(-50%, -50%);
+  opacity: 0.06;
+  z-index: 0;
 }
 
 /* ========== SERVICIOS SECTION ========== */
@@ -685,6 +725,155 @@ button, input, select, textarea {
   font-size: 1.8rem;
   color: var(--color-primary);
   text-align: right;
+}
+
+.plan-subtitle {
+  color: var(--color-gray-medium);
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: var(--spacing-l);
+}
+
+.plan-subtitle strong {
+  color: var(--color-dark);
+  font-weight: 600;
+}
+
+.plan-features {
+  text-align: left;
+  margin-bottom: var(--spacing-l);
+}
+
+.plan-features p {
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-bottom: var(--spacing-m);
+  font-size: 1.1rem;
+}
+
+.plan-time {
+  font-size: 0.95rem;
+  color: var(--color-gray-medium);
+  margin-bottom: var(--spacing-l);
+  padding-top: var(--spacing-l);
+  border-top: 1px solid var(--color-gray-light);
+}
+
+.plan-time strong {
+  color: var(--color-dark);
+}
+
+/* ========== CASOS DE USO (¿Qué problema te resuelvo?) ========== */
+.casos-uso {
+  padding: 6rem 0;
+  background: linear-gradient(180deg, rgba(82,113,255,0.03) 0%, rgba(255,255,255,0) 100%);
+  position: relative;
+}
+
+.casos-uso .section-header {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.casos-uso .section-title {
+  font-size: 3.2rem;
+  margin-bottom: 0.4rem;
+}
+
+.casos-uso .section-subtitle {
+  font-size: 1.25rem;
+  color: var(--color-gray-medium);
+  margin-bottom: 2rem;
+}
+
+.casos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.casos-uso .container { position: relative; z-index: 1; }
+
+.casos-bg-shape {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  left: 50vw;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background: radial-gradient(circle at 30% 30%, rgba(82,113,255,0.12), rgba(82,113,255,0.05) 40%, rgba(255,255,255,0));
+  border-radius: 50%;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 1024px) {
+  .casos-bg-shape { width: 420px; height: 420px; opacity: 0.06; }
+}
+
+@media (max-width: 680px) {
+  .casos-bg-shape { display: none; }
+}
+
+.caso-card {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  padding: 1.6rem;
+  border-radius: 12px;
+  background: white;
+  border: 1px solid var(--color-gray-light);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.caso-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(82,113,255,0.18);
+}
+
+.caso-icon {
+  min-width: 72px;
+  min-height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: var(--color-primary);
+  background: linear-gradient(135deg, rgba(82,113,255,0.08), rgba(255,93,126,0.04));
+  flex-shrink: 0;
+}
+
+.caso-card h3 {
+  font-size: 1.2rem;
+  margin: 0 0 0.25rem 0;
+  color: var(--color-dark);
+}
+
+.caso-card p {
+  margin: 0;
+  color: var(--color-gray-medium);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+  .casos-grid { grid-template-columns: repeat(2, 1fr); }
+  .casos-uso .section-header { text-align: center; }
+}
+
+@media (max-width: 680px) {
+  .casos-grid { grid-template-columns: 1fr; }
+  .caso-card { flex-direction: row; gap: 1rem; }
 }
 
 /* ========== PROCESO SECTION ========== */
@@ -1420,6 +1609,10 @@ button, input, select, textarea {
     grid-template-columns: 1fr;
   }
   
+    .casos-grid {
+      grid-template-columns: 1fr;
+    }
+
   .proceso-timeline {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -1646,6 +1839,7 @@ button, input, select, textarea {
 .servicio-card:nth-child(1) { animation-delay: 0.1s; }
 .servicio-card:nth-child(2) { animation-delay: 0.2s; }
 .servicio-card:nth-child(3) { animation-delay: 0.3s; }
+.servicio-card:nth-child(4) { animation-delay: 0.4s; }
 
 .paso:nth-child(1) { animation-delay: 0.1s; }
 .paso:nth-child(2) { animation-delay: 0.2s; }
@@ -1659,30 +1853,85 @@ button, input, select, textarea {
 /* ========== CONTACTO MEJORADO ========== */
 .contacto {
   padding: 8rem 0;
-  background-color: var(--color-light);
+  background: linear-gradient(135deg, rgba(82, 113, 255, 0.02) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 .contacto-grid {
   display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 2.5rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
   align-items: start;
-  margin-top: var(--spacing-l);
+  margin-top: var(--spacing-xl);
 }
 
 .contacto-card {
-  background-color: white;
-  padding: 3rem;
+  background: white;
+  padding: 3.5rem;
   border-radius: var(--border-radius-l);
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-normal);
-  border: 1px solid transparent;
+  border: 1px solid var(--color-gray-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.contacto-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contacto-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.contacto-card:hover::before {
+  transform: scaleX(1);
+}
+
+.card-header-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(82, 113, 255, 0.1), rgba(82, 113, 255, 0.05));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  transition: all var(--transition-normal);
+}
+
+.contacto-card:hover .card-header-icon {
+  background: linear-gradient(135deg, var(--color-primary), #4161ed);
+  color: white;
+  transform: scale(1.1) rotate(5deg);
+}
+
+.card-header-icon.highlight-icon {
+  background: linear-gradient(135deg, rgba(255, 95, 126, 0.1), rgba(255, 95, 126, 0.05));
+  color: var(--color-secondary);
+}
+
+.contacto-card:hover .card-header-icon.highlight-icon {
+  background: linear-gradient(135deg, var(--color-secondary), #ff4869);
+  color: white;
 }
 
 .contacto-card h3 {
   font-family: var(--font-heading);
-  font-size: 2.4rem;
-  font-weight: 600;
+  font-size: 2.2rem;
+  font-weight: 700;
   color: var(--color-dark);
   margin-bottom: var(--spacing-m);
 }
@@ -1690,6 +1939,7 @@ button, input, select, textarea {
 .contacto-card p {
   line-height: 1.7;
   color: var(--color-gray-dark);
+  font-size: 1.5rem;
 }
 
 .contacto-cta {
@@ -1699,34 +1949,111 @@ button, input, select, textarea {
   text-align: center;
 }
 
+.contacto-left,
+.contacto-right {
+  display: flex;
+  flex-direction: column;
+}
+
 .contacto-list {
-  margin: var(--spacing-m) 0;
+  margin: var(--spacing-l) 0;
   font-size: 1.4rem;
   color: var(--color-gray-dark);
-  line-height: 1.8;
+  line-height: 2.2;
+  list-style: none;
 }
 
 .contacto-list li {
-  margin-bottom: var(--spacing-s);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-left: 0;
+}
+
+.list-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), #4161ed);
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+}
+
+.contacto-list li strong {
+  color: var(--color-dark);
+  font-weight: 600;
 }
 
 .contacto-socials { 
-  margin-top: var(--spacing-l); 
+  margin-top: var(--spacing-xl); 
   justify-content: flex-start;
 }
 
 .contacto-card .social-icon {
   background-color: var(--color-primary);
+  transition: all var(--transition-normal);
 }
 
-.whatsapp-cta { margin-top: var(--spacing-l); }
+.contacto-card .social-icon:hover {
+  background-color: var(--color-secondary);
+  transform: translateY(-3px) scale(1.1);
+}
 
-.muted { color: var(--color-gray-medium); }
-.small-note { font-size: 1.2rem; color: var(--color-gray-medium); margin-top: var(--spacing-s); }
+.whatsapp-cta { 
+  margin-top: var(--spacing-xl);
+  transition: all var(--transition-normal);
+}
+
+.whatsapp-cta:hover {
+  transform: scale(1.02);
+}
+
+.muted { 
+  color: var(--color-gray-medium);
+  font-size: 1.4rem;
+}
+
+.small-note { 
+  font-size: 1.2rem; 
+  color: var(--color-gray-medium); 
+  margin-top: var(--spacing-m);
+  font-style: italic;
+}
 
 @media (max-width: 768px) {
-  .contacto-grid { grid-template-columns: 1fr; }
-  .contacto-cta { margin-top: 1rem; }
+  .contacto-grid { 
+    grid-template-columns: 1fr;
+  }
+  
+  .contacto-card {
+    padding: 2.5rem;
+  }
+  
+  .contacto-card h3 {
+    font-size: 2rem;
+  }
+  
+  .contacto-list {
+    font-size: 1.3rem;
+    line-height: 2rem;
+  }
+  
+  .card-header-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+  }
+  
+  .contacto-cta { 
+    margin-top: 1rem; 
+  }
 }
 .paso:nth-child(4) { animation-delay: 0.6s; }
 

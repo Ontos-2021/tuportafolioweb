@@ -473,3 +473,52 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.observe(card);
     });
 });
+
+// Hero variant selector (Opción A / Opción B)
+document.addEventListener('DOMContentLoaded', () => {
+    const hero = document.querySelector('.hero');
+    const btnA = document.getElementById('hero-variant-a');
+    const btnB = document.getElementById('hero-variant-b');
+
+    if (!hero || !btnA || !btnB) return;
+
+    const heading = hero.querySelector('.hero-content h2');
+    const paras = hero.querySelectorAll('.hero-content > p');
+    const mainP = paras[0];
+
+    const variants = {
+        A: {
+            h2: 'Páginas web que <span class="highlight">convierten</span> visitas en clientes',
+            p: 'Diseño profesional + estructura de venta + publicación online. Desde una landing rápida hasta un sistema simple para ordenar reservas, pedidos o clientes.'
+        },
+        B: {
+            h2: 'Diseño que <span class="highlight">impacta</span>. Estructura que <span class="highlight">vende</span>.',
+            p: 'Portafolios y landing pages con estética cuidada y enfoque en resultados.'
+        }
+    };
+
+    function setVariant(v) {
+        const data = variants[v] || variants.A;
+        heading.innerHTML = data.h2;
+        mainP.textContent = data.p;
+
+        // toggle classes
+        hero.classList.toggle('hero--option-a', v === 'A');
+        hero.classList.toggle('hero--option-b', v === 'B');
+
+        // update buttons
+        btnA.classList.toggle('active', v === 'A');
+        btnB.classList.toggle('active', v === 'B');
+        btnA.setAttribute('aria-pressed', v === 'A' ? 'true' : 'false');
+        btnB.setAttribute('aria-pressed', v === 'B' ? 'true' : 'false');
+
+        try { localStorage.setItem('heroVariant', v); } catch (e) {}
+    }
+
+    btnA.addEventListener('click', () => setVariant('A'));
+    btnB.addEventListener('click', () => setVariant('B'));
+
+    // init
+    const saved = (function(){ try { return localStorage.getItem('heroVariant'); } catch(e){ return null; } })() || 'A';
+    setVariant(saved);
+});
