@@ -981,7 +981,26 @@ button, input, select, textarea {
 
 @media (max-width: 680px) {
   .casos-grid { grid-template-columns: 1fr; }
-  .caso-card { flex-direction: row; gap: 1rem; }
+  .caso-card { 
+    flex-direction: row; 
+    gap: 1rem; 
+    padding: 1.4rem;
+  }
+  
+  .caso-card h3 {
+    font-size: 1.1rem;
+  }
+  
+  .caso-card p {
+    font-size: 1.2rem;
+    line-height: 1.4;
+  }
+  
+  .caso-icon {
+    min-width: 60px;
+    min-height: 60px;
+    font-size: 1.4rem;
+  }
 }
 
 /* ========== PROCESO SECTION ========== */
@@ -2094,6 +2113,14 @@ button, input, select, textarea {
   margin-right: 0.5rem;
 }
 
+.list-hint {
+  font-size: 1.1rem;
+  color: var(--color-gray-medium);
+  font-weight: 400;
+  font-style: italic;
+  opacity: 0.85;
+}
+
 .contacto-list li strong {
   color: var(--color-dark);
   font-weight: 600;
@@ -2145,12 +2172,20 @@ button, input, select, textarea {
   }
   
   .contacto-card h3 {
-    font-size: 2rem;
+    font-size: 1.7rem;
+  }
+  
+  .contacto-card p {
+    font-size: 1.3rem;
   }
   
   .contacto-list {
-    font-size: 1.3rem;
-    line-height: 2rem;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+  }
+  
+  .contacto-list li {
+    margin-bottom: 1rem;
   }
   
   .card-header-icon {
