@@ -444,6 +444,97 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
+
+    // Casos de uso: manejar cards dinámicamente (hover en desktop, scroll/click en móvil)
+    const casosCards = document.querySelectorAll('.caso-card');
+    if (casosCards.length) {
+        let isMobile = window.innerWidth <= 768;
+        let mobileCasosObserver = null;
+
+        const observeCasosOnMobile = () => {
+            if (mobileCasosObserver || !isMobile) return;
+            // Activar la card "active" según cuál esté más visible al scrollear
+            mobileCasosObserver = new IntersectionObserver((entries) => {
+                // Elegir la entrada con mayor intersección visible
+                let best = null;
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (!best || entry.intersectionRatio > best.intersectionRatio) {
+                            best = entry;
+                        }
+                    }
+                });
+                if (best) {
+                    casosCards.forEach(c => c.classList.remove('active'));
+                    best.target.classList.add('active');
+                }
+            }, { threshold: [0.35, 0.5, 0.65, 0.8, 1], rootMargin: '-20% 0px -20% 0px' });
+
+            casosCards.forEach(card => mobileCasosObserver.observe(card));
+        };
+
+        const unobserveCasosOnMobile = () => {
+            if (mobileCasosObserver) {
+                mobileCasosObserver.disconnect();
+                mobileCasosObserver = null;
+            }
+        };
+        
+        // Detectar cambios de tamaño de pantalla y activar/desactivar observer móvil
+        window.addEventListener('resize', () => {
+            isMobile = window.innerWidth <= 768;
+            if (isMobile) {
+                observeCasosOnMobile();
+            } else {
+                unobserveCasosOnMobile();
+            }
+        });
+
+        casosCards.forEach(card => {
+            // Desktop: hover para cambiar active
+            card.addEventListener('mouseenter', () => {
+                if (!isMobile) {
+                    casosCards.forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                }
+            });
+
+            // Móvil: click como fallback (por si el usuario quiere fijar una card)
+            card.addEventListener('click', (e) => {
+                if (isMobile) {
+                    const wasActive = card.classList.contains('active');
+                    casosCards.forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                    // Evitar navegación accidental en el primer toque
+                    if (!wasActive) e.preventDefault();
+                }
+            });
+        });
+
+        // Inicializar según el entorno actual
+        if (isMobile) {
+            observeCasosOnMobile();
+        }
+
+        // Desktop: restaurar primer card como active cuando mouse sale de la sección
+        const casosSection = document.querySelector('.casos-uso');
+        if (casosSection) {
+            let mouseLeaveTimeout;
+            
+            casosSection.addEventListener('mouseleave', () => {
+                if (!isMobile) {
+                    mouseLeaveTimeout = setTimeout(() => {
+                        casosCards.forEach(c => c.classList.remove('active'));
+                        casosCards[0]?.classList.add('active');
+                    }, 300);
+                }
+            });
+
+            casosSection.addEventListener('mouseenter', () => {
+                clearTimeout(mouseLeaveTimeout);
+            });
+        }
+    }
 });
 
 // Animación para hacer aparecer elementos al hacer scroll (consolidada)

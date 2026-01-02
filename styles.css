@@ -80,6 +80,43 @@
   text-shadow: 0 2px 8px rgba(82, 113, 255, 0.08);
 }
 
+/* Unificar tipografías: usar var(--font-body) y tamaños consistentes en todas las secciones */
+.hero h1, .hero h2, .hero h3, .hero h4,
+#casos-uso h1, #casos-uso h2, #casos-uso h3,
+#servicios h1, #servicios h2, #servicios h3,
+#proceso h1, #proceso h2, #proceso h3,
+#galeria h1, #galeria h2, #galeria h3,
+#contacto h1, #contacto h2, #contacto h3,
+#testimonios h1, #testimonios h2, #testimonios h3 {
+  font-family: var(--font-body);
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.hero p, #casos-uso p, #servicios p, #proceso p, #galeria p, #contacto p, #testimonios p,
+.features-list li, .contacto-list li, .proyecto-info p, .caso-card p {
+  font-family: var(--font-body);
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--color-gray-dark);
+}
+
+/* Reducir tamaños específicamente en casos-uso para mejor proporción */
+#casos-uso h3,
+.caso-card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+#casos-uso p,
+.caso-card p {
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: var(--color-gray-dark);
+}
+
 .section-badge {
   display: inline-block;
   padding: 0.6rem 1.8rem;
@@ -915,6 +952,31 @@ button, input, select, textarea {
 @media (max-width: 1024px) {
   .casos-grid { grid-template-columns: repeat(2, 1fr); }
   .casos-uso .section-header { text-align: center; }
+}
+
+@media (max-width: 768px) {
+  .caso-card {
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(82, 113, 255, 0.1);
+  }
+  
+  .caso-card.active {
+    box-shadow: 0 8px 30px rgba(82, 113, 255, 0.2);
+    border-color: var(--color-primary);
+    transform: translateY(-8px);
+  }
+  
+  /* Asegurar que el borde superior sea visible */
+  .caso-card.active::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  
+  /* Efecto de pulsación al tocar */
+  .caso-card:active:not(.active) {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
 }
 
 @media (max-width: 680px) {
