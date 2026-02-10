@@ -1,53 +1,54 @@
-## Copilot instructions for this repo
+# Copilot Instructions for `tuportafolioweb`
 
-Project type and purpose
-- Static, single-page portfolio/landing site in Spanish. No build step, no frameworks.
-- Key files: `index.html` (markup & minimal inline scripts), `styles.css` (design system, layout, responsive), `script.js` (UX interactions), `assets/` (images). `CNAME` indicates GitHub Pages custom domain.
+This is a static portfolio website built with HTML5, CSS3, and Vanilla JavaScript.
 
-Architecture and data flow
-- Sections in `index.html`: header (sticky), hero, servicios, proceso, galeria (filterable), testimonios, contacto (CTA WhatsApp), footer, CTA.
-- `styles.css` define un sistema de diseño en `:root` (variables de color, tipografía, espaciado), clases de componentes (p.ej., `.servicio-card`, `.paso`, `.proyecto`, `.info-card`) y breakpoints (1024, 768, 480).
-- `script.js` is vanilla JS. Patterns used:
-	- DOMContentLoaded wrapper; query elements once, then attach listeners.
-	- Smooth scroll for internal anchors with fixed-header offset (100px) and `header.scrolled` toggle on scroll (throttled via timeout).
-	- Gallery filtering via `[data-category]` + `.filtro-btn[data-filter]` (categorías `portafolios|landing|desarrollo|apps`), usando la clase `.fade-out` con timeout de 300 ms.
-	- Animated stats in hero: `IntersectionObserver` (threshold 0.5) triggers `animateNumbers()` once; easing is `easeOutCubic`.
-		- Scroll-in animations: un único observer añade `.fade-in.visible` a secciones y cards tras aplicar `.animate-on-scroll`.
+## Architecture & Tech Stack
+- **Type:** Static Website (HTML/CSS/JS)
+- **Deployment:** GitHub Pages (managed via `CNAME`)
+- **Core Files:**
+  - `index.html`: Main structure and content (Single Page Application feel).
+  - `styles.css`: All styling, using native CSS variables for theming.
+  - `script.js`: Interactive behavior (navigation, gallery filtering, animations).
 
-Repo-specific conventions
-- Language: all UI text is Spanish; keep diacritics (á, é, í, ó, ú, ñ) and tone consistent.
-- CSS: extend `:root` variables; prefer component classes over inline styles; keep shadows/radii/spacing via vars; match media query breakpoints already used.
-- JS: avoid heavy work in `scroll`; keep throttling/debouncing; prefer augmenting existing observers over creating new ones; add/remove classes rather than inline styles.
-- Assets: reference via relative paths under `assets/`; provide meaningful Spanish `alt` text.
+## Coding Conventions
 
-Integration points and dependencies
-- External CDNs: Google Fonts, Font Awesome; no bundler.
-- Contacto es exclusivamente vía WhatsApp (CTA en `#contacto` con `https://wa.me/<numero>`). Ajusta el número y el texto `?text=` según necesidad.
-- No hay formulario de contacto ni backend asociado.
+### HTML (`index.html`)
+- Use semantic HTML tags (`header`, `nav`, `section`, `article`, `footer`).
+- Image paths are relative to `assets/` folder (e.g., `src="assets/logo.png"`).
+- IDs are used for navigation anchors (`#servicios`, `#proyectos`).
+- Maintain accessibility attributes (`aria-label`, `alt` text).
 
-Common tasks (how to do them here)
-- Add a new section: create a `<section id="...">` in `index.html`; add styles near the matching section header in `styles.css`; include the section class in the animated selectors in `script.js` so it fades in on scroll.
-- Add a gallery item: duplica una tarjeta `.proyecto` dentro de la sección con id `galeria`, ajusta `data-category` a `portafolios|landing|desarrollo|apps`, actualiza imagen y textos. El filtro funciona automáticamente.
-- Tweak anchor scrolling: update the `offsetTop - 100` constant in `script.js` if header height changes.
-- Personalizar WhatsApp CTA: edita el enlace de `#contacto` (y el botón flotante si aplica) con el número y mensaje correcto.
+### CSS (`styles.css`)
+- **Theme System:** STRICTLY use existing CSS variables defined in `:root` (e.g., `var(--color-primary)`, `var(--sp-4)`). Do not hardcode hex values or pixel spacings unless correcting the theme itself.
+- **Methodology:** Loose BEM conventions mixed with descriptive utility classes.
+- **Responsive:** Mobile-first considerations. Large screens handled via media queries (typically `min-width`).
+- **Typography:** Uses 'Playfair Display' for headings and 'Inter' for body.
 
-Pitfalls seen in this repo (avoid/reconcile)
-- Evita reintroducir scripts inline en `index.html` (centraliza en `script.js`).
-- Observers de scroll: usa el existente; evita crear más de los necesarios para no duplicar animaciones.
+### JavaScript (`script.js`)
+- **Style:** Vanilla JavaScript (ES6+). No jQuery or framework dependencies.
+- **Events:** Use `DOMContentLoaded` for initialization.
+- **Performance:** Throttle scroll events (see `scrollTimeout` implementation).
+- **Language:** Comments and variable names for business logic tend to be in Spanish (e.g., `filtroBtns`, `proyectos`), while generic utils might be English. Follow the existing file's pattern.
 
-Run/preview and deployment
-- No build. Preview locally with a static server (e.g., VS Code Live Server). Paths are root-relative; keep `index.html` at repo root for GitHub Pages.
-- Because `CNAME` is present, keep the root file layout and don’t rename `index.html`.
+## Key Components & Patterns
 
-Examples
-- New gallery card snippet (HTML): duplicate `.proyecto` and set `data-category="landing"` and `img alt="Landing ..."`.
-- Adding a new animated component: ensure its selector is included where `animatedElements` and the consolidated observer select elements in `script.js`.
+1.  **Navigation**:
+    - Header becomes `scrolled` on scroll (handled in JS).
+    - Mobile menu uses `.menu-toggle` and `.main-nav` with class toggling.
 
-Code pointers
-- Header scroll logic: `script.js` toggles `.header-main.scrolled`; styles live under “HEADER” in `styles.css`.
-- Filter behavior: `.filtro-btn` click handler; fade timing is 300ms; CSS class `.fade-out` injected via `<style>` tag in `script.js`.
-- Stats animation: `.number` elements in hero; easing and duration (2000ms) in `animateNumbers()`.
+2.  **Gallery/Projects**:
+    - Filtering relies on `data-` attributes (check HTML structure for `data-category`).
+    - Grid layout managed via CSS Grid/Flexbox.
 
-If you’re unsure
-- Favor existing class names and variables; mirror patterns already present.
-- Ask before introducing new libraries or a build step.
+3.  **Styling**:
+    - "Cards" use `var(--surface-1)`, `var(--shadow-sm)`, `var(--radius-md)`.
+    - Buttons rely on classes like `.btn-principal` and `.btn-secundario`.
+
+## External Dependencies
+- **Font Awesome:** Loaded via CDN for icons.
+- **Google Fonts:** Inter & Playfair Display.
+
+## Development Workflow
+- **Run:** Open `index.html` directly in a browser or use a local server (e.g., Live Server).
+- **Build:** None. Files are served as-is.
+- **Deploy:** Push to `main` branch trigger GitHub Pages build.
