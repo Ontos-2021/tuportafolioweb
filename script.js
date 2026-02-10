@@ -354,7 +354,74 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Servicios: recommended card is now static (class in HTML), no dynamic toggling needed
+    // Servicios: scroll-based highlighting on mobile (similar to casos de uso)
+    const servicioCards = document.querySelectorAll('.servicio-card');
+    if (servicioCards.length) {
+        let isMobileSvc = window.innerWidth <= 768;
+        let mobileServiciosObserver = null;
+
+        const observeServiciosOnMobile = () => {
+            if (mobileServiciosObserver || !isMobileSvc) return;
+            mobileServiciosObserver = new IntersectionObserver(() => {
+                let bestCard = null;
+                let bestRatio = 0;
+
+                servicioCards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+
+                    const activeZoneTop = windowHeight * 0.25;
+                    const activeZoneBottom = windowHeight * 0.75;
+
+                    const visibleTop = Math.max(rect.top, activeZoneTop);
+                    const visibleBottom = Math.min(rect.bottom, activeZoneBottom);
+                    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+
+                    const visibilityRatio = visibleHeight / rect.height;
+
+                    if (visibilityRatio > bestRatio) {
+                        bestRatio = visibilityRatio;
+                        bestCard = card;
+                    }
+                });
+
+                if (bestCard && bestRatio > 0.15) {
+                    const currentActive = document.querySelector('.servicio-card.active');
+                    if (currentActive !== bestCard) {
+                        servicioCards.forEach(c => c.classList.remove('active'));
+                        bestCard.classList.add('active');
+                    }
+                }
+            }, {
+                threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+                rootMargin: '0px'
+            });
+
+            servicioCards.forEach(card => mobileServiciosObserver.observe(card));
+        };
+
+        const unobserveServiciosOnMobile = () => {
+            if (mobileServiciosObserver) {
+                mobileServiciosObserver.disconnect();
+                mobileServiciosObserver = null;
+                // Limpiar estado active al salir de mobile
+                servicioCards.forEach(c => c.classList.remove('active'));
+            }
+        };
+
+        window.addEventListener('resize', () => {
+            isMobileSvc = window.innerWidth <= 768;
+            if (isMobileSvc) {
+                observeServiciosOnMobile();
+            } else {
+                unobserveServiciosOnMobile();
+            }
+        });
+
+        if (isMobileSvc) {
+            observeServiciosOnMobile();
+        }
+    }
 
     // Casos de uso: manejar cards dinámicamente (hover en desktop, scroll/click en móvil)
     const casosCards = document.querySelectorAll('.caso-card');
@@ -364,22 +431,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const observeCasosOnMobile = () => {
             if (mobileCasosObserver || !isMobile) return;
-            // Activar la card "active" según cuál esté más visible al scrollear
-            mobileCasosObserver = new IntersectionObserver((entries) => {
-                // Elegir la entrada con mayor intersección visible
-                let best = null;
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        if (!best || entry.intersectionRatio > best.intersectionRatio) {
-                            best = entry;
-                        }
+            // Activar la card "active" según cuál esté más centrada en el viewport
+            // Se evalúan TODAS las cards en cada callback (no solo entries) para evitar saltos bruscos
+            mobileCasosObserver = new IntersectionObserver(() => {
+                let bestCard = null;
+                let bestRatio = 0;
+
+                casosCards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+
+                    // Zona activa central: descartar 25% superior e inferior
+                    const activeZoneTop = windowHeight * 0.25;
+                    const activeZoneBottom = windowHeight * 0.75;
+
+                    const visibleTop = Math.max(rect.top, activeZoneTop);
+                    const visibleBottom = Math.min(rect.bottom, activeZoneBottom);
+                    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+
+                    const visibilityRatio = visibleHeight / rect.height;
+
+                    if (visibilityRatio > bestRatio) {
+                        bestRatio = visibilityRatio;
+                        bestCard = card;
                     }
                 });
-                if (best) {
-                    casosCards.forEach(c => c.classList.remove('active'));
-                    best.target.classList.add('active');
+
+                if (bestCard && bestRatio > 0.15) {
+                    const currentActive = document.querySelector('.caso-card.active');
+                    if (currentActive !== bestCard) {
+                        casosCards.forEach(c => c.classList.remove('active'));
+                        bestCard.classList.add('active');
+                    }
                 }
-            }, { threshold: [0.35, 0.5, 0.65, 0.8, 1], rootMargin: '-20% 0px -20% 0px' });
+            }, {
+                threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+                rootMargin: '0px'
+            });
 
             casosCards.forEach(card => mobileCasosObserver.observe(card));
         };

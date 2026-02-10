@@ -743,6 +743,33 @@ button, input, select, textarea {
     transform: scaleX(1);
   }
   
+  /* Scroll-based active highlight en móvil */
+  .servicio-card.active:not(.recommended) {
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-hover);
+    transform: translateY(-3px);
+  }
+  
+  .servicio-card.active:not(.recommended)::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  
+  .servicio-card.active:not(.recommended)::before {
+    opacity: 1;
+  }
+  
+  .servicio-card.active .card-icon,
+  .servicio-card.recommended .card-icon {
+    background-color: var(--accent);
+    transform: scale(1.1);
+  }
+  
+  .servicio-card.active .card-icon i,
+  .servicio-card.recommended .card-icon i {
+    color: white;
+  }
+  
   /* Efecto de pulsación al tocar */
   .servicio-card:active:not(.recommended) {
     transform: scale(0.98);
@@ -1022,13 +1049,21 @@ button, input, select, textarea {
   .caso-card.active {
     box-shadow: 0 8px 30px rgba(82, 113, 255, 0.2);
     border-color: var(--accent);
-    transform: translateY(-8px);
+    transform: translateY(-3px);
   }
   
   /* Asegurar que el borde superior sea visible */
   .caso-card.active::after {
     opacity: 1;
     transform: scaleX(1);
+  }
+  
+  .caso-card.active::before {
+    opacity: 1;
+  }
+  
+  .caso-card.active .caso-icon {
+    background: rgba(82,113,255,0.14);
   }
   
   /* Efecto de pulsación al tocar */
