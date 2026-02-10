@@ -2158,6 +2158,62 @@ button, input, select, textarea {
   font-weight: 600;
 }
 
+/* Updated styles for new Contact section */
+.contacto-list li div {
+    flex: 1;
+}
+
+.contacto-list .muted-text {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    font-weight: 400;
+    line-height: 1.4;
+    margin-top: 2px;
+}
+
+.availability-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    margin: 0 auto var(--sp-4);
+    padding: 0.4rem 1rem;
+    background-color: rgba(41, 204, 122, 0.1);
+    color: #209658;
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #29cc7a;
+    border-radius: 50%;
+    position: relative;
+    display: block;
+}
+
+.pulse-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: inherit;
+    animation: pulse-ring 2s infinite cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+@keyframes pulse-ring {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+    100% { transform: translate(-50%, -50%) scale(3.5); opacity: 0; }
+}
+
 .contacto-socials { 
   margin-top: var(--sp-8); 
   justify-content: flex-start;
