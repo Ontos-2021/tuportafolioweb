@@ -469,10 +469,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const cards = document.querySelectorAll('.servicio-card, .paso, .proyecto, .testimonio, .info-card, .escena-item, .valor-item, .caso-card, .faq-item');
-    cards.forEach((card, index) => {
-        card.style.transitionDelay = `${index * 0.08}s`; // Reducido de 0.1s a 0.08s para más rapidez
-        card.classList.add('fade-in');
-        revealObserver.observe(card);
+    // Agrupar cards por sección padre para que el stagger se reinicie en cada sección
+    const sectionGroups = new Map();
+    cards.forEach(card => {
+        const section = card.closest('section') || card.parentElement;
+        if (!sectionGroups.has(section)) {
+            sectionGroups.set(section, []);
+        }
+        sectionGroups.get(section).push(card);
+    });
+
+    sectionGroups.forEach(groupCards => {
+        groupCards.forEach((card, index) => {
+            card.style.transitionDelay = `${Math.min(index * 0.08, 0.48)}s`; // Stagger per-section, máximo 0.48s
+            card.classList.add('fade-in');
+            revealObserver.observe(card);
+        });
     });
 });
 
