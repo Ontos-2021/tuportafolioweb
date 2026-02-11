@@ -16,22 +16,33 @@
     <link rel="icon" href="assets/logo.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="assets/logo.png">
     <meta name="theme-color" content="#5271ff">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Resource hints (before external stylesheets) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://wa.me">
+
+    <!-- Critical CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Google Fonts (reduced from 9 to 4 weights) -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome (deferred — non-render-blocking) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 </head>
 <body>
     <header class="header-main">
         <div class="container header-container">
-            <div class="logo">
-                <img src="assets/logo.png" alt="Tu Portafolio Web" class="logo-img">
+            <a href="#" class="logo" aria-label="Volver al inicio">
+                <img src="assets/logo.png" alt="Tu Portafolio Web" class="logo-img" width="40" height="40">
                 <div class="logo-text">
                     <h1>Tu Portafolio Web<span class="accent-dot">.</span></h1>
                     <span class="tagline">Arte & Diseño Digital</span>
                 </div>
-            </div>
+            </a>
             <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">
                 <span class="sr-only">Abrir menú de navegación</span>
                 <i class="fas fa-bars" aria-hidden="true"></i>
@@ -85,7 +96,7 @@
             <div class="hero-visual">
                 <div class="floating-cards">
                     <div class="preview-card card-1">
-                        <img src="assets/hero-image.png" alt="Diseño creativo para portafolios web">
+                        <img src="assets/hero-image.webp" alt="Diseño creativo para portafolios web" width="600" height="400" fetchpriority="high">
                     </div>
                 </div>
                 <div class="bg-shape"></div>
@@ -264,7 +275,8 @@
                         <a href="https://wa.me/5491164233754?text=Hola!%20Me%20interesa%20el%20plan%20*Landing%20Pro*.%20Mi%20negocio%20es%20%5B%5D.%20Lo%20necesito%20para%20%5B%5D." target="_blank" rel="noopener" class="btn-principal whatsapp-plan-cta"><i class="fab fa-whatsapp"></i>Quiero este plan</a>
                 </div>
 
-                <div class="servicio-card">
+                <div class="servicio-card recommended">
+                    <span class="recommended-label">Destacado</span>
                     <div class="card-icon">
                             <i class="fas fa-calendar-check"></i>
                     </div>
@@ -307,7 +319,7 @@
                 <div class="servicio-card">
                     <div class="card-icon">
                             <i class="fas fa-cogs"></i>
-                    </div>
+                    </div> 
                         <h3>Sistema Web</h3>
                         <p class="plan-subtitle"><strong>Para:</strong> negocios que necesitan organizar turnos, pedidos, clientes o inventario</p>
                         <div class="plan-features">
@@ -462,7 +474,7 @@
             <div class="galeria-grid">
                 <div class="proyecto" data-category="portafolios">
                     <div class="proyecto-inner">
-                        <img src="assets/proyecto1.jpg" alt="Portafolio César Tattoo" loading="lazy">
+                        <img src="assets/proyecto1.jpg" alt="Portafolio César Tattoo" loading="lazy" width="600" height="400">
                         <div class="overlay">
                             <div class="proyecto-info">
                                 <span class="proyecto-categoria">Portafolio Creativo</span>
@@ -477,7 +489,7 @@
                 </div>
                 <div class="proyecto" data-category="portafolios">
                     <div class="proyecto-inner">
-                        <img src="assets/proyecto5.jpg" alt="Portafolio José Mercado Music" loading="lazy">
+                        <img src="assets/proyecto5.jpg" alt="Portafolio José Mercado Music" loading="lazy" width="600" height="400">
                         <div class="overlay">
                             <div class="proyecto-info">
                                 <span class="proyecto-categoria">Portafolio Personal</span>
@@ -492,7 +504,7 @@
                 </div>
                 <div class="proyecto" data-category="landing">
                     <div class="proyecto-inner">
-                        <img src="assets/proyecto2.jpg" alt="Landing Page Las Heras Sports" loading="lazy">
+                        <img src="assets/proyecto2.jpg" alt="Landing Page Las Heras Sports" loading="lazy" width="600" height="400">
                         <div class="overlay">
                             <div class="proyecto-info">
                                 <span class="proyecto-categoria">Landing page</span>
@@ -507,7 +519,7 @@
                 </div>
                 <div class="proyecto" data-category="desarrollo">
                     <div class="proyecto-inner">
-                        <img src="assets/proyecto3.jpg" alt="MoneyFlow — App Django" loading="lazy">
+                        <img src="assets/proyecto3.jpg" alt="MoneyFlow — App Django" loading="lazy" width="600" height="400">
                         <div class="overlay">
                             <div class="proyecto-info">
                                 <span class="proyecto-categoria">Desarrollo Avanzado</span>
@@ -522,7 +534,7 @@
                 </div>
                 <div class="proyecto" data-category="apps">
                     <div class="proyecto-inner">
-                        <img src="assets/proyecto4.jpg" alt="Calculadora Porcentual" loading="lazy">
+                        <img src="assets/proyecto4.jpg" alt="Calculadora Porcentual" loading="lazy" width="600" height="400">
                         <div class="overlay">
                             <div class="proyecto-info">
                                 <span class="proyecto-categoria">App Sencilla</span>
@@ -537,7 +549,7 @@
                 </div>
                 <div class="proyecto" data-category="apps">
                     <div class="proyecto-inner">
-                        <img src="assets/proyecto6.jpg" alt="TrivAI — Trivia con IA" loading="lazy">
+                        <img src="assets/proyecto6.jpg" alt="TrivAI — Trivia con IA" loading="lazy" width="600" height="400">
                         <div class="overlay">
                             <div class="proyecto-info">
                                 <span class="proyecto-categoria">App Sencilla</span>
@@ -582,7 +594,7 @@
                     </div>
                     <div class="cliente">
                         <div class="cliente-img">
-                            <img src="assets/cliente1.webp" alt="Cesar Medina" loading="lazy">
+                            <img src="assets/cliente1.webp" alt="Cesar Medina" loading="lazy" width="60" height="60">
                         </div>
                         <div class="cliente-info">
                             <h4>Cesar Medina</h4>
@@ -590,6 +602,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             <div class="testimonios-dots"></div>
         </div>
     </section>
@@ -625,7 +638,7 @@
                         <i class="fab fa-whatsapp"></i>
                         Hablar con José ahora
                     </a>
-                        <p class="contacto-response-time" style="margin-top: 1rem; font-size: 0.85rem;"><i class="fas fa-clock" style="margin-right: 5px;"></i> Respuesta promedio: 2 horas (Lun-Vie)</p>
+                        <p class="contacto-response-time"><i class="fas fa-clock contacto-clock-icon"></i> Respuesta promedio: 2 horas (Lun-Vie)</p>
                 </div>
             </div>
         </div>

@@ -1,5 +1,16 @@
 // Smooth scroll para los enlaces de navegación
 document.addEventListener('DOMContentLoaded', function() {
+    // Utilidad: resize debounced compartido
+    const resizeCallbacks = [];
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            resizeCallbacks.forEach(fn => fn());
+        }, 150);
+    });
+    function onResize(fn) { resizeCallbacks.push(fn); }
+
     const links = document.querySelectorAll('a[href^="#"]');
     
     for (const link of links) {
@@ -7,11 +18,21 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             
             const href = this.getAttribute('href');
+            
+            // Si el href es solo "#", scrollear al inicio
+            if (href === '#') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+            
             const targetElement = document.querySelector(href);
             
             if (targetElement) {
+                // Usar getBoundingClientRect para posición más confiable (especialmente mobile)
+                const headerHeight = document.querySelector('.header-main')?.offsetHeight || 80;
+                const top = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
                 window.scrollTo({
-                    top: targetElement.offsetTop - 100, // Ajuste para el header fijo
+                    top: top,
                     behavior: 'smooth'
                 });
             }
@@ -44,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        window.addEventListener('resize', () => {
+        onResize(() => {
             if (window.innerWidth > 768) {
                 toggleMenu(false);
             }
@@ -72,19 +93,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Mejora de rendimiento con throttling para el evento scroll
-    let scrollTimeout;
+    // Mejora de rendimiento con rAF para el evento scroll
+    let scrollTicking = false;
     window.addEventListener('scroll', function() {
-        clearTimeout(scrollTimeout);
-        
-        scrollTimeout = setTimeout(function() {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        }, 10);
-    });
+        if (!scrollTicking) {
+            requestAnimationFrame(function() {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+                // Cerrar tarjetas activas en mobile al hacer scroll
+                if (window.innerWidth <= 768) {
+                    proyectos.forEach(p => p.classList.remove('active'));
+                }
+                scrollTicking = false;
+            });
+            scrollTicking = true;
+        }
+    }, { passive: true });
     
     // Filtro de la galería de proyectos
     const filtroBtns = document.querySelectorAll('.filtro-btn');
@@ -147,17 +170,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Si ya está activa, permitir que el link funcione normalmente
             }
         });
-    });
-    
-    // Cerrar tarjetas activas al hacer scroll en mobile
-    let scrollTimeout2;
-    window.addEventListener('scroll', () => {
-        if (isMobileDevice()) {
-            clearTimeout(scrollTimeout2);
-            scrollTimeout2 = setTimeout(() => {
-                proyectos.forEach(p => p.classList.remove('active'));
-            }, 150);
-        }
     });
     
     // Cerrar tarjetas activas al hacer tap fuera de ellas
@@ -278,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             }, { 
-                threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1], 
+                threshold: [0, 0.3, 0.6, 1], 
                 rootMargin: '0px'
             });
 
@@ -293,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Detectar cambios de tamaño de pantalla
-        window.addEventListener('resize', () => {
+        onResize(() => {
             isMobile = window.innerWidth <= 768;
             if (isMobile) {
                 observePasosOnMobile();
@@ -393,7 +405,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             }, {
-                threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+                threshold: [0, 0.3, 0.6, 1],
                 rootMargin: '0px'
             });
 
@@ -409,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
 
-        window.addEventListener('resize', () => {
+        onResize(() => {
             isMobileSvc = window.innerWidth <= 768;
             if (isMobileSvc) {
                 observeServiciosOnMobile();
@@ -465,7 +477,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             }, {
-                threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+                threshold: [0, 0.3, 0.6, 1],
                 rootMargin: '0px'
             });
 
@@ -480,7 +492,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         // Detectar cambios de tamaño de pantalla y activar/desactivar observer móvil
-        window.addEventListener('resize', () => {
+        onResize(() => {
             isMobile = window.innerWidth <= 768;
             if (isMobile) {
                 observeCasosOnMobile();
@@ -534,10 +546,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
-});
 
-// Animación para hacer aparecer elementos al hacer scroll (consolidada)
-document.addEventListener('DOMContentLoaded', () => {
+    // Animación para hacer aparecer elementos al hacer scroll (consolidada)
     // Reveal observer: activar cuando los elementos están a punto de aparecer
     // Margen positivo aumentado para que empiecen a animarse antes (250px antes de entrar)
     const observerOptions = { threshold: 0.05, rootMargin: '0px 0px 250px 0px' };
@@ -574,10 +584,8 @@ document.addEventListener('DOMContentLoaded', () => {
             revealObserver.observe(card);
         });
     });
-});
 
-// FAQ accordion: solo un item abierto a la vez
-document.addEventListener('DOMContentLoaded', () => {
+    // FAQ accordion: solo un item abierto a la vez
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
         item.addEventListener('toggle', () => {
