@@ -10,13 +10,56 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 150);
     });
     function onResize(fn) { resizeCallbacks.push(fn); }
+    const isMobileDevice = () => window.innerWidth <= 768;
+    const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Referencias compartidas (declaradas arriba para evitar TDZ en handlers async)
+    const filtroBtns = document.querySelectorAll('.filtro-btn');
+    const proyectos = document.querySelectorAll('.proyecto');
+
+    // Helper genérico: resalta la card más visible dentro de la zona central (móvil)
+    function observeBestVisible(cards, activeClass = 'active', topRatio = 0.25, bottomRatio = 0.75, threshold = 0.15) {
+        const observer = new IntersectionObserver(() => {
+            let best = null;
+            let bestRatio = 0;
+            const vh = window.innerHeight;
+            const zoneTop = vh * topRatio;
+            const zoneBottom = vh * bottomRatio;
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const visible = Math.max(0, Math.min(rect.bottom, zoneBottom) - Math.max(rect.top, zoneTop));
+                const ratio = rect.height ? visible / rect.height : 0;
+                if (ratio > bestRatio) { bestRatio = ratio; best = card; }
+            });
+            if (best && bestRatio > threshold && !best.classList.contains(activeClass)) {
+                cards.forEach(c => c.classList.remove(activeClass));
+                best.classList.add(activeClass);
+            }
+        }, { threshold: [0, 0.3, 0.6, 1], rootMargin: '0px' });
+        cards.forEach(card => observer.observe(card));
+        return observer;
+    }
+
+    // Tracking liviano de CTAs WhatsApp (data-plan) — listo para GA/Pixel
+    document.querySelectorAll('a[data-plan]').forEach(a => {
+        a.addEventListener('click', () => {
+            const plan = a.getAttribute('data-plan');
+            try {
+                if (window.gtag) window.gtag('event', 'whatsapp_click', { plan });
+                if (window.fbq) window.fbq('trackCustom', 'WhatsAppClick', { plan });
+            } catch (e) { /* noop */ }
+        });
+    });
 
     const links = document.querySelectorAll('a[href^="#"]');
     
     for (const link of links) {
         link.addEventListener('click', function(e) {
+            // El skip-link debe conservar su comportamiento nativo + foco
+            if (this.classList.contains('skip-link')) return;
+
             e.preventDefault();
-            
+
             const href = this.getAttribute('href');
             
             // Si el href es solo "#", scrollear al inicio
@@ -98,28 +141,25 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', function() {
         if (!scrollTicking) {
             requestAnimationFrame(function() {
-                header.classList.toggle('scrolled', window.scrollY > 50);
-                // Cerrar tarjetas activas en mobile al hacer scroll
-                if (window.innerWidth <= 768) {
-                    proyectos.forEach(p => p.classList.remove('active'));
-                }
+                if (header) header.classList.toggle('scrolled', window.scrollY > 50);
                 scrollTicking = false;
             });
             scrollTicking = true;
         }
     }, { passive: true });
-    
+
     // Filtro de la galería de proyectos
-    const filtroBtns = document.querySelectorAll('.filtro-btn');
-    const proyectos = document.querySelectorAll('.proyecto');
-    
     if (filtroBtns.length > 0 && proyectos.length > 0) {
         filtroBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Remover clase activa
-                filtroBtns.forEach(b => b.classList.remove('active'));
+                // Remover clase activa + estado accesible
+                filtroBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-pressed', 'false');
+                });
                 // Añadir clase activa al botón pulsado
                 btn.classList.add('active');
+                btn.setAttribute('aria-pressed', 'true');
                 
                 const filtro = btn.getAttribute('data-filter');
                 
@@ -148,42 +188,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Manejo de tap en tarjetas de proyectos para mobile
-    const isMobileDevice = () => window.innerWidth <= 768;
-    
+    // Overlay siempre visible en móvil (CSS): un solo tap abre el proyecto.
+    // Solo usamos .active para el zoom sutil, sin bloquear la navegación.
     proyectos.forEach(proyecto => {
-        // Prevenir comportamiento por defecto en mobile para controlar la interacción
-        proyecto.addEventListener('click', (e) => {
+        proyecto.addEventListener('click', () => {
             if (isMobileDevice()) {
-                const isActive = proyecto.classList.contains('active');
-                
-                // Si la tarjeta no está activa, activarla y prevenir navegación
-                if (!isActive) {
-                    e.preventDefault();
-                    
-                    // Desactivar todas las demás tarjetas
-                    proyectos.forEach(p => p.classList.remove('active'));
-                    
-                    // Activar la tarjeta actual
-                    proyecto.classList.add('active');
-                } 
-                // Si ya está activa, permitir que el link funcione normalmente
+                proyectos.forEach(p => p.classList.remove('active'));
+                proyecto.classList.add('active');
             }
         });
     });
     
-    // Cerrar tarjetas activas al hacer tap fuera de ellas
-    document.addEventListener('click', (e) => {
-        if (isMobileDevice()) {
-            const clickedProyecto = e.target.closest('.proyecto');
-            if (!clickedProyecto) {
-                proyectos.forEach(p => p.classList.remove('active'));
-            }
-        }
-    });
-    
-    // Contador de estadísticas animado
+    // Contador de estadísticas animado (respeta reduced-motion)
     function animateNumbers() {
+        if (prefersReducedMotion()) return;
         const stats = document.querySelectorAll('.number');
         
         stats.forEach(stat => {
@@ -247,54 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const observePasosOnMobile = () => {
             if (mobilePasoObserver || !isMobile) return;
-            // En móvil, activar con IntersectionObserver al hacer scroll
-            mobilePasoObserver = new IntersectionObserver((entries) => {
-                // Buscar entre TODOS los pasos observados (no solo los entries actuales)
-                // para encontrar el que tiene mayor visibilidad en este momento
-                let bestPaso = null;
-                let bestRatio = 0;
-                
-                pasos.forEach(paso => {
-                    const rect = paso.getBoundingClientRect();
-                    const windowHeight = window.innerHeight;
-                    
-                    // Calcular qué porcentaje del paso está en el área visible central
-                    const pasoTop = rect.top;
-                    const pasoBottom = rect.bottom;
-                    const pasoHeight = rect.height;
-                    
-                    // Zona "activa" central: 20% superior y 20% inferior removidos
-                    const activeZoneTop = windowHeight * 0.2;
-                    const activeZoneBottom = windowHeight * 0.8;
-                    
-                    // Calcular intersección con la zona activa
-                    const visibleTop = Math.max(pasoTop, activeZoneTop);
-                    const visibleBottom = Math.min(pasoBottom, activeZoneBottom);
-                    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-                    
-                    // Ratio de visibilidad: cuánto del paso está en la zona activa
-                    const visibilityRatio = visibleHeight / pasoHeight;
-                    
-                    if (visibilityRatio > bestRatio) {
-                        bestRatio = visibilityRatio;
-                        bestPaso = paso;
-                    }
-                });
-                
-                // Solo cambiar si hay un paso claramente más visible (threshold mínimo)
-                if (bestPaso && bestRatio > 0.3) {
-                    const currentActive = document.querySelector('.proceso .paso.active');
-                    if (currentActive !== bestPaso) {
-                        pasos.forEach(p => p.classList.remove('active'));
-                        bestPaso.classList.add('active');
-                    }
-                }
-            }, { 
-                threshold: [0, 0.3, 0.6, 1], 
-                rootMargin: '0px'
-            });
-
-            pasos.forEach(paso => mobilePasoObserver.observe(paso));
+            mobilePasoObserver = observeBestVisible(pasos, 'active', 0.2, 0.8, 0.3);
         };
 
         const unobservePasosOnMobile = () => {
@@ -321,23 +292,10 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         pasos.forEach(paso => {
-            paso.setAttribute('tabindex', '0');
-            paso.setAttribute('role', 'button');
-
-            // Desktop: hover fija el 'active' temporalmente, similar a Servicios
+            // Los pasos son contenido informativo, no controles: sin role="button"
+            // ni tabindex para no crear paradas de tab innecesarias.
             paso.addEventListener('mouseenter', () => {
                 if (!isMobile) {
-                    setActivePaso(paso);
-                }
-            });
-            // Teclado: activar al enfocar y limpiar al salir
-            paso.addEventListener('focusin', () => setActivePaso(paso));
-            paso.addEventListener('focusout', () => {
-                pasos.forEach(p => p.classList.remove('active'));
-            });
-            paso.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
                     setActivePaso(paso);
                 }
             });
@@ -374,42 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const observeServiciosOnMobile = () => {
             if (mobileServiciosObserver || !isMobileSvc) return;
-            mobileServiciosObserver = new IntersectionObserver(() => {
-                let bestCard = null;
-                let bestRatio = 0;
-
-                servicioCards.forEach(card => {
-                    const rect = card.getBoundingClientRect();
-                    const windowHeight = window.innerHeight;
-
-                    const activeZoneTop = windowHeight * 0.25;
-                    const activeZoneBottom = windowHeight * 0.75;
-
-                    const visibleTop = Math.max(rect.top, activeZoneTop);
-                    const visibleBottom = Math.min(rect.bottom, activeZoneBottom);
-                    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-
-                    const visibilityRatio = visibleHeight / rect.height;
-
-                    if (visibilityRatio > bestRatio) {
-                        bestRatio = visibilityRatio;
-                        bestCard = card;
-                    }
-                });
-
-                if (bestCard && bestRatio > 0.15) {
-                    const currentActive = document.querySelector('.servicio-card.active');
-                    if (currentActive !== bestCard) {
-                        servicioCards.forEach(c => c.classList.remove('active'));
-                        bestCard.classList.add('active');
-                    }
-                }
-            }, {
-                threshold: [0, 0.3, 0.6, 1],
-                rootMargin: '0px'
-            });
-
-            servicioCards.forEach(card => mobileServiciosObserver.observe(card));
+            mobileServiciosObserver = observeBestVisible(servicioCards, 'active', 0.25, 0.75, 0.15);
         };
 
         const unobserveServiciosOnMobile = () => {
@@ -443,45 +366,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const observeCasosOnMobile = () => {
             if (mobileCasosObserver || !isMobile) return;
-            // Activar la card "active" según cuál esté más centrada en el viewport
-            // Se evalúan TODAS las cards en cada callback (no solo entries) para evitar saltos bruscos
-            mobileCasosObserver = new IntersectionObserver(() => {
-                let bestCard = null;
-                let bestRatio = 0;
-
-                casosCards.forEach(card => {
-                    const rect = card.getBoundingClientRect();
-                    const windowHeight = window.innerHeight;
-
-                    // Zona activa central: descartar 25% superior e inferior
-                    const activeZoneTop = windowHeight * 0.25;
-                    const activeZoneBottom = windowHeight * 0.75;
-
-                    const visibleTop = Math.max(rect.top, activeZoneTop);
-                    const visibleBottom = Math.min(rect.bottom, activeZoneBottom);
-                    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-
-                    const visibilityRatio = visibleHeight / rect.height;
-
-                    if (visibilityRatio > bestRatio) {
-                        bestRatio = visibilityRatio;
-                        bestCard = card;
-                    }
-                });
-
-                if (bestCard && bestRatio > 0.15) {
-                    const currentActive = document.querySelector('.caso-card.active');
-                    if (currentActive !== bestCard) {
-                        casosCards.forEach(c => c.classList.remove('active'));
-                        bestCard.classList.add('active');
-                    }
-                }
-            }, {
-                threshold: [0, 0.3, 0.6, 1],
-                rootMargin: '0px'
-            });
-
-            casosCards.forEach(card => mobileCasosObserver.observe(card));
+            mobileCasosObserver = observeBestVisible(casosCards, 'active', 0.25, 0.75, 0.15);
         };
 
         const unobserveCasosOnMobile = () => {
@@ -510,14 +395,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Móvil: click como fallback (por si el usuario quiere fijar una card)
-            card.addEventListener('click', (e) => {
+            // Móvil: click fija la card activa (las caso-card no contienen links,
+            // así que no hay navegación que prevenir).
+            card.addEventListener('click', () => {
                 if (isMobile) {
-                    const wasActive = card.classList.contains('active');
                     casosCards.forEach(c => c.classList.remove('active'));
                     card.classList.add('active');
-                    // Evitar navegación accidental en el primer toque
-                    if (!wasActive) e.preventDefault();
                 }
             });
         });

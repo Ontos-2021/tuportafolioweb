@@ -5,17 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Portafolio Web — Diseño Web Artístico & Profesional</title>
     <meta name="description" content="Estudio de diseño especializado en portafolios creativos y landing pages de alta conversión. Equilibrio perfecto entre arte y funcionalidad.">
+    <link rel="canonical" href="https://tuportafolioweb.com/">
+    <meta name="robots" content="index, follow">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tuportafolioweb.com/">
     <meta property="og:title" content="Tu Portafolio Web — Diseño Web Artístico & Profesional">
     <meta property="og:description" content="Creamos experiencias digitales únicas. Portafolios y Landing Pages que convencen.">
-    <meta property="og:image" content="https://tuportafolioweb.com/assets/hero-image.png">
+    <meta property="og:image" content="https://tuportafolioweb.com/assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Ejemplos de portafolios y landing pages creados por Tu Portafolio Web">
+    <meta property="og:locale" content="es_AR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tu Portafolio Web — Diseño Web Artístico & Profesional">
+    <meta name="twitter:description" content="Creamos experiencias digitales únicas. Portafolios y Landing Pages que convencen.">
+    <meta name="twitter:image" content="https://tuportafolioweb.com/assets/og-image.jpg">
 
     <link rel="icon" href="assets/logo.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="assets/logo.png">
     <meta name="theme-color" content="#5271ff">
+
+    <!-- Datos estructurados -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Tu Portafolio Web",
+      "url": "https://tuportafolioweb.com/",
+      "description": "Estudio de diseño especializado en portafolios creativos y landing pages de alta conversión.",
+      "areaServed": ["AR", "CL", "UY"],
+      "priceRange": "$$",
+      "telephone": "+54-9-11-6423-3754",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Buenos Aires",
+        "addressCountry": "AR"
+      }
+    }
+    </script>
 
     <!-- Resource hints (before external stylesheets) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,6 +65,7 @@
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 </head>
 <body>
+    <a href="#contenido" class="skip-link">Saltar al contenido principal</a>
     <header class="header-main">
         <div class="container header-container">
             <a href="#" class="logo" aria-label="Volver al inicio">
@@ -47,7 +79,7 @@
                 <span class="sr-only">Abrir menú de navegación</span>
                 <i class="fas fa-bars" aria-hidden="true"></i>
             </button>
-            <nav class="main-nav" id="main-nav">
+            <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
                 <ul>
                     <li><a href="#servicios" class="nav-link">Planes</a></li>
                     <li><a href="#proyectos" class="nav-link">Proyectos</a></li>
@@ -59,6 +91,7 @@
         </div>
     </header>
 
+    <main id="contenido" tabindex="-1">
     <section class="hero">
         <div class="container hero-grid">
             <div class="hero-content">
@@ -72,9 +105,9 @@
                     <small class="hero-meta">Pagos en CLP/ARS/USD. Precios <strong>desde</strong> según alcance.</small>
                 </p>
                 <div class="hero-buttons">
-                    <a href="#contacto" class="btn-principal">Diseña tu Presencia</a>
+                    <a href="https://wa.me/5491164233754?text=Hola%20Jos%C3%A9!%20Quiero%20dise%C3%B1ar%20mi%20presencia%20online.%20Mi%20negocio%20es%20%5B...%5D." target="_blank" rel="noopener" class="btn-principal" data-plan="hero">Diseña tu Presencia</a>
                     <a href="#proyectos" class="btn-secundario">
-                        <span class="btn-icon"><i class="fas fa-eye"></i></span>
+                        <span class="btn-icon"><i class="fas fa-eye" aria-hidden="true"></i></span>
                         Ver Proyectos
                     </a>
                 </div>
@@ -112,19 +145,19 @@
             </div>
             <div class="escena-grid">
                 <div class="escena-item">
-                    <div class="escena-icon"><i class="fas fa-clock"></i></div>
+                    <div class="escena-icon"><i class="fas fa-clock" aria-hidden="true"></i></div>
                     <p>Son las 23:00. Otro mensaje de WhatsApp preguntando <strong>"¿cuánto sale?"</strong>. Respondés lo mismo por décima vez esta semana.</p>
                 </div>
                 <div class="escena-item">
-                    <div class="escena-icon"><i class="fas fa-user-slash"></i></div>
+                    <div class="escena-icon"><i class="fas fa-user-slash" aria-hidden="true"></i></div>
                     <p>Un cliente reservó turno por chat. No vino. No avisó. <strong>Perdiste el horario y la plata.</strong></p>
                 </div>
                 <div class="escena-item">
-                    <div class="escena-icon"><i class="fas fa-search"></i></div>
+                    <div class="escena-icon"><i class="fas fa-search" aria-hidden="true"></i></div>
                     <p>Te buscan en Google y no aparecés. O peor: aparece tu competencia <strong>con una página profesional</strong> y vos seguís con el link de Instagram en la bio.</p>
                 </div>
                 <div class="escena-item">
-                    <div class="escena-icon"><i class="fas fa-table"></i></div>
+                    <div class="escena-icon"><i class="fas fa-table" aria-hidden="true"></i></div>
                     <p>Tu "sistema" es una planilla de Excel, tres chats fijados y notas en el celular. <strong>Funciona... hasta que no.</strong></p>
                 </div>
             </div>
@@ -143,42 +176,42 @@
                 <div class="casos-grid">
                     <div class="caso-card">
                         <div class="caso-icon">
-                            <i class="fas fa-comments"></i>
+                            <i class="fas fa-comments" aria-hidden="true"></i>
                         </div>
                         <h3>Quiero que me escriban por WhatsApp</h3>
                         <p>Necesitas que tus clientes potenciales te encuentren y te contacten sin perderse en redes sociales.</p>
                     </div>
                     <div class="caso-card">
                         <div class="caso-icon">
-                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
                         </div>
                         <h3>Necesito mostrar mi trabajo como profesional</h3>
                         <p>Eres artista, fotógrafo o creativo y quieres un portafolio que inspire confianza.</p>
                     </div>
                     <div class="caso-card">
                         <div class="caso-icon">
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
                         </div>
                         <h3>Quiero vender o recibir pedidos online</h3>
                         <p>Tienes productos/servicios y necesitas un lugar donde los clientes puedan enterarse y contactarte.</p>
                     </div>
                     <div class="caso-card">
                         <div class="caso-icon">
-                            <i class="fas fa-calendar"></i>
+                            <i class="fas fa-calendar" aria-hidden="true"></i>
                         </div>
                         <h3>Quiero tomar reservas sin desorden</h3>
                         <p>Estás cansado de planillas y chats desordenados. Necesitas un sistema simple para gestionar turnos.</p>
                     </div>
                     <div class="caso-card">
                         <div class="caso-icon">
-                            <i class="fas fa-check-circle"></i>
+                            <i class="fas fa-check-circle" aria-hidden="true"></i>
                         </div>
                         <h3>Quiero dejar de usar planillas</h3>
                         <p>Tus clientes, pedidos o gestión interna está en Excel y es un caos. Necesitas orden.</p>
                     </div>
                     <div class="caso-card">
                         <div class="caso-icon">
-                            <i class="fas fa-shield-alt"></i>
+                            <i class="fas fa-shield-alt" aria-hidden="true"></i>
                         </div>
                         <h3>Quiero que mi negocio se vea confiable</h3>
                         <p>Tu marca merece una presencia digital profesional que te ayude a convertir curiosos en clientes.</p>
@@ -201,21 +234,21 @@
                 </div>
                 <div class="por-que-valores">
                     <div class="valor-item">
-                        <i class="fas fa-check-circle"></i>
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
                         <div>
                             <strong>Entregables claros</strong>
                             <span>Sabés exactamente qué recibís y cuándo.</span>
                         </div>
                     </div>
                     <div class="valor-item">
-                        <i class="fas fa-comments"></i>
+                        <i class="fas fa-comments" aria-hidden="true"></i>
                         <div>
                             <strong>Comunicación directa</strong>
                             <span>Hablamos por WhatsApp. Sin intermediarios.</span>
                         </div>
                     </div>
                     <div class="valor-item">
-                        <i class="fas fa-redo"></i>
+                        <i class="fas fa-redo" aria-hidden="true"></i>
                         <div>
                             <strong>Ajustes incluidos</strong>
                             <span>Las primeras semanas corregimos lo que haga falta.</span>
@@ -236,7 +269,7 @@
             <div class="servicios-grid">
                     <div class="servicio-card">
                         <div class="card-icon">
-                            <i class="fas fa-bolt"></i>
+                            <i class="fas fa-bolt" aria-hidden="true"></i>
                         </div>
                         <h3>Landing Express</h3>
                         <p class="plan-subtitle"><strong>Para:</strong> pymes, emprendedores, freelancers, eventos locales</p>
@@ -252,12 +285,12 @@
                         </div>
                         <div class="plan-time"><strong>Tiempo:</strong> 24–72 horas</div>
                         <div class="price-tag">Desde $120.000 CLP</div>
-                        <a href="https://wa.me/5491164233754?text=Hola!%20Me%20interesa%20el%20plan%20*Landing%20Express*.%20Mi%20negocio%20es%20%5B%5D.%20Lo%20necesito%20para%20%5B%5D." target="_blank" rel="noopener" class="btn-principal whatsapp-plan-cta"><i class="fab fa-whatsapp"></i>Quiero este plan</a>
+                        <a href="https://wa.me/5491164233754?text=Hola!%20Me%20interesa%20el%20plan%20*Landing%20Express*.%20Mi%20negocio%20es%20%5B%5D.%20Lo%20necesito%20para%20%5B%5D." data-plan="landing-express" target="_blank" rel="noopener" class="btn-principal whatsapp-plan-cta"><i class="fab fa-whatsapp" aria-hidden="true"></i>Quiero este plan</a>
                     </div>
 
                 <div class="servicio-card">
                     <div class="card-icon">
-                            <i class="fas fa-chart-line"></i>
+                            <i class="fas fa-chart-line" aria-hidden="true"></i>
                     </div>
                         <h3>Landing Pro</h3>
                         <p class="plan-subtitle"><strong>Para:</strong> campañas de lanzamiento, servicios premium, conversión maximizada</p>
@@ -272,13 +305,13 @@
                         </div>
                         <div class="plan-time"><strong>Tiempo:</strong> 4–7 días</div>
                         <div class="price-tag">Desde $250.000 CLP</div>
-                        <a href="https://wa.me/5491164233754?text=Hola!%20Me%20interesa%20el%20plan%20*Landing%20Pro*.%20Mi%20negocio%20es%20%5B%5D.%20Lo%20necesito%20para%20%5B%5D." target="_blank" rel="noopener" class="btn-principal whatsapp-plan-cta"><i class="fab fa-whatsapp"></i>Quiero este plan</a>
+                        <a href="https://wa.me/5491164233754?text=Hola!%20Me%20interesa%20el%20plan%20*Landing%20Pro*.%20Mi%20negocio%20es%20%5B%5D.%20Lo%20necesito%20para%20%5B%5D." data-plan="landing-pro" target="_blank" rel="noopener" class="btn-principal whatsapp-plan-cta"><i class="fab fa-whatsapp" aria-hidden="true"></i>Quiero este plan</a>
                 </div>
 
                 <div class="servicio-card recommended">
                     <span class="recommended-label">Destacado</span>
                     <div class="card-icon">
-                            <i class="fas fa-calendar-check"></i>
+                            <i class="fas fa-calendar-check" aria-hidden="true"></i>
                     </div>
                         <h3>Agenda que Cobra <span class="plan-badge-new">7 días</span></h3>
                         <p class="plan-subtitle"><strong>Para:</strong> negocios con turnos, reservas o citas (peluquerías, consultorios, canchas, estudios)</p>
@@ -294,12 +327,12 @@
                         </div>
                         <div class="plan-time"><strong>Tiempo:</strong> 7 días</div>
                         <div class="price-tag">Desde $350.000 CLP</div>
-                        <a href="https://wa.me/5491164233754?text=Hola!%20Me%20interesa%20el%20plan%20*Agenda%20que%20Cobra%20(7%20d%C3%ADas)*.%20Mi%20negocio%20es%20%5B%5D%20y%20necesito%20organizar%20%5Bturnos%2Freservas%2Fcitas%5D." target="_blank" rel="noopener" class="btn-principal whatsapp-plan-cta"><i class="fab fa-whatsapp"></i>Quiero este plan</a>
+                        <a href="https://wa.me/5491164233754?text=Hola!%20Me%20interesa%20el%20plan%20*Agenda%20que%20Cobra%20(7%20d%C3%ADas)*.%20Mi%20negocio%20es%20%5B%5D%20y%20necesito%20organizar%20%5Bturnos%2Freservas%2Fcitas%5D." data-plan="agenda-que-cobra" target="_blank" rel="noopener" class="btn-principal whatsapp-plan-cta"><i class="fab fa-whatsapp" aria-hidden="true"></i>Quiero este plan</a>
                 </div>
 
                 <div class="servicio-card">
                     <div class="card-icon">
-                            <i class="fas fa-image"></i>
+                            <i class="fas fa-image" aria-hidden="true"></i>
                     </div>
                         <h3>Portafolio Pro</h3>
                         <p class="plan-subtitle"><strong>Para:</strong> fotógrafos, diseñadores, tatuadores, músicos, productores, consultores</p>
@@ -314,11 +347,11 @@
                         </div>
                         <div class="plan-time"><strong>Tiempo:</strong> 1–2 semanas</div>
                         <div class="price-tag">Desde $380.000 CLP</div>
-                        <a href="https://wa.me/5491164233754?text=Hola!%20Me%20interesa%20el%20plan%20*Portafolio%20Pro*.%20Soy%20%5Bprofesi%C3%B3n%5D%20y%20quiero%20mostrar%20mi%20trabajo." target="_blank" rel="noopener" class="btn-principal whatsapp-plan-cta"><i class="fab fa-whatsapp"></i>Quiero este plan</a>
+                        <a href="https://wa.me/5491164233754?text=Hola!%20Me%20interesa%20el%20plan%20*Portafolio%20Pro*.%20Soy%20%5Bprofesi%C3%B3n%5D%20y%20quiero%20mostrar%20mi%20trabajo." data-plan="portafolio-pro" target="_blank" rel="noopener" class="btn-principal whatsapp-plan-cta"><i class="fab fa-whatsapp" aria-hidden="true"></i>Quiero este plan</a>
                 </div>
                 <div class="servicio-card">
                     <div class="card-icon">
-                            <i class="fas fa-cogs"></i>
+                            <i class="fas fa-cogs" aria-hidden="true"></i>
                     </div> 
                         <h3>Sistema Web</h3>
                         <p class="plan-subtitle"><strong>Para:</strong> negocios que necesitan organizar turnos, pedidos, clientes o inventario</p>
@@ -333,7 +366,7 @@
                         </div>
                         <div class="plan-time"><strong>Tiempo:</strong> 2–4 semanas</div>
                         <div class="price-tag">Desde $900.000 CLP</div>
-                        <a href="https://wa.me/5491164233754?text=Hola!%20Me%20interesa%20el%20plan%20*Sistema%20Web*.%20Necesito%20organizar%20%5Bturnos%2Fpedidos%2Fclientes%2Finventario%5D.%20Mi%20negocio%20es%20%5B%5D." target="_blank" rel="noopener" class="btn-principal whatsapp-plan-cta"><i class="fab fa-whatsapp"></i>Contame tu caso</a>
+                        <a href="https://wa.me/5491164233754?text=Hola!%20Me%20interesa%20el%20plan%20*Sistema%20Web*.%20Necesito%20organizar%20%5Bturnos%2Fpedidos%2Fclientes%2Finventario%5D.%20Mi%20negocio%20es%20%5B%5D." data-plan="sistema-web" target="_blank" rel="noopener" class="btn-principal whatsapp-plan-cta"><i class="fab fa-whatsapp" aria-hidden="true"></i>Contame tu caso</a>
                 </div>
             </div>
         </div>
@@ -350,7 +383,7 @@
                 <details class="faq-item">
                     <summary class="faq-question">
                         <span>¿Y si el resultado no me gusta?</span>
-                        <i class="fas fa-chevron-down faq-chevron"></i>
+                        <i class="fas fa-chevron-down faq-chevron" aria-hidden="true"></i>
                     </summary>
                     <div class="faq-answer">
                         <p>Las primeras semanas después de la entrega incluyen ajustes sin costo extra. Te muestro avances durante el proceso para que no haya sorpresas. Si algo no te convence, lo corregimos juntos.</p>
@@ -359,7 +392,7 @@
                 <details class="faq-item">
                     <summary class="faq-question">
                         <span>¿Puedo pagar en cuotas?</span>
-                        <i class="fas fa-chevron-down faq-chevron"></i>
+                        <i class="fas fa-chevron-down faq-chevron" aria-hidden="true"></i>
                     </summary>
                     <div class="faq-answer">
                         <p>Sí. Los pagos se dividen en dos partes: 50% para arrancar y 50% contra entrega. En proyectos más grandes podemos acordar un plan de 3 pagos. Aceptamos transferencia y pagos en CLP, ARS o USD.</p>
@@ -368,7 +401,7 @@
                 <details class="faq-item">
                     <summary class="faq-question">
                         <span>¿Quién se queda con el dominio y el hosting?</span>
-                        <i class="fas fa-chevron-down faq-chevron"></i>
+                        <i class="fas fa-chevron-down faq-chevron" aria-hidden="true"></i>
                     </summary>
                     <div class="faq-answer">
                         <p>Vos. El dominio y la cuenta de hosting quedan a tu nombre. Al terminar, te entrego accesos y una guía simple para que puedas administrarlo sin depender de nadie.</p>
@@ -377,7 +410,7 @@
                 <details class="faq-item">
                     <summary class="faq-question">
                         <span>¿Cuánto tarda realmente?</span>
-                        <i class="fas fa-chevron-down faq-chevron"></i>
+                        <i class="fas fa-chevron-down faq-chevron" aria-hidden="true"></i>
                     </summary>
                     <div class="faq-answer">
                         <p>Depende del plan. Una landing express puede estar online en 24–72 horas. Un portafolio o sistema toma 1–4 semanas. Los plazos son realistas: si surge algo, te aviso el mismo día.</p>
@@ -386,7 +419,7 @@
                 <details class="faq-item">
                     <summary class="faq-question">
                         <span>¿Qué pasa después de la entrega?</span>
-                        <i class="fas fa-chevron-down faq-chevron"></i>
+                        <i class="fas fa-chevron-down faq-chevron" aria-hidden="true"></i>
                     </summary>
                     <div class="faq-answer">
                         <p>Incluyo un período de ajustes post-entrega. Después, si necesitás cambios puntuales o una funcionalidad nueva, los cotizo por separado. No hay cuotas mensuales obligatorias.</p>
@@ -395,7 +428,7 @@
                 <details class="faq-item">
                     <summary class="faq-question">
                         <span>¿Necesito tener contenido listo (textos, fotos)?</span>
-                        <i class="fas fa-chevron-down faq-chevron"></i>
+                        <i class="fas fa-chevron-down faq-chevron" aria-hidden="true"></i>
                     </summary>
                     <div class="faq-answer">
                         <p>Ayuda, pero no es obligatorio. Te guío para armar los textos con preguntas simples, y ajusto la redacción para que suene profesional. Las fotos las podemos resolver con lo que tengas o con recursos de calidad.</p>
@@ -420,7 +453,7 @@
                             <p>Me cuentas qué vendes y a quién. Juntos definimos el objetivo: ¿consultas por WhatsApp? ¿ventas? ¿reservas?</p>
                     </div>
                     <div class="paso-icon">
-                        <i class="fas fa-lightbulb"></i>
+                        <i class="fas fa-lightbulb" aria-hidden="true"></i>
                     </div>
                 </div>
                 <div class="paso">
@@ -430,7 +463,7 @@
                             <p>Ordeno el contenido para que se entienda a simple vista. Cada sección tiene lógica de conversión: qué haces → por qué → cómo contactarte.</p>
                     </div>
                     <div class="paso-icon">
-                        <i class="fas fa-pencil-ruler"></i>
+                        <i class="fas fa-pencil-ruler" aria-hidden="true"></i>
                     </div>
                 </div>
                 <div class="paso">
@@ -440,7 +473,7 @@
                             <p>Diseño limpio y profesional, rápido en celular, con todo conectado. Te muestro avances y ajustamos juntos.</p>
                     </div>
                     <div class="paso-icon">
-                        <i class="fas fa-code"></i>
+                        <i class="fas fa-code" aria-hidden="true"></i>
                     </div>
                 </div>
                 <div class="paso">
@@ -450,7 +483,7 @@
                             <p>Lo dejamos online y afinamos detalles finales. Primeras semanas incluyen ajustes para que quede impecable.</p>
                     </div>
                     <div class="paso-icon">
-                        <i class="fas fa-rocket"></i>
+                        <i class="fas fa-rocket" aria-hidden="true"></i>
                     </div>
                 </div>
             </div>
@@ -464,14 +497,14 @@
                 <h2 class="section-title">Proyectos que Cautivan</h2>
                 <p class="section-subtitle">Una muestra de nuestras creaciones más destacadas donde la creatividad y la tecnología se fusionan.</p>
             </div>
-            <div class="filtros">
-                <button class="filtro-btn active" data-filter="todos"><span>Todos</span></button>
-                <button class="filtro-btn" data-filter="portafolios"><span>Portafolios</span></button>
-                <button class="filtro-btn" data-filter="landing"><span>Landing Pages</span></button>
-                <button class="filtro-btn" data-filter="desarrollo"><span>Desarrollo Avanzado</span></button>
-                <button class="filtro-btn" data-filter="apps"><span>Apps Sencillas</span></button>
+            <div class="filtros" role="group" aria-label="Filtrar proyectos por categoría">
+                <button class="filtro-btn active" data-filter="todos" aria-pressed="true"><span>Todos</span></button>
+                <button class="filtro-btn" data-filter="portafolios" aria-pressed="false"><span>Portafolios</span></button>
+                <button class="filtro-btn" data-filter="landing" aria-pressed="false"><span>Landing Pages</span></button>
+                <button class="filtro-btn" data-filter="desarrollo" aria-pressed="false"><span>Desarrollo Avanzado</span></button>
+                <button class="filtro-btn" data-filter="apps" aria-pressed="false"><span>Apps Sencillas</span></button>
             </div>
-            <div class="galeria-grid">
+            <div class="galeria-grid" aria-live="polite">
                 <div class="proyecto" data-category="portafolios">
                     <div class="proyecto-inner">
                         <img src="assets/proyecto1.jpg" alt="Portafolio César Tattoo" loading="lazy" width="600" height="400">
@@ -481,7 +514,7 @@
                                 <h3>César Tattoo — Arte en la Piel</h3>
                                 <p>Portafolio artístico para mostrar trabajos de tatuajes y facilitar contacto con clientes</p>
                                 <a href="https://cesartattoo.com" target="_blank" rel="noopener noreferrer" class="btn-ver-proyecto" aria-label="Ver proyecto César Tattoo en nueva pestaña">
-                                    <i class="fas fa-external-link-alt"></i> Ver proyecto
+                                    <i class="fas fa-external-link-alt" aria-hidden="true"></i> Ver proyecto
                                 </a>
                             </div>
                         </div>
@@ -496,7 +529,7 @@
                                 <h3>José Mercado Music — Portafolio Personal</h3>
                                 <p>Portafolio de productor musical que muestra sus servicios y proyectos.</p>
                                 <a href="https://josemercadomusic.com/" target="_blank" rel="noopener noreferrer" class="btn-ver-proyecto" aria-label="Ver proyecto José Mercado Music en nueva pestaña">
-                                    <i class="fas fa-external-link-alt"></i> Ver proyecto
+                                    <i class="fas fa-external-link-alt" aria-hidden="true"></i> Ver proyecto
                                 </a>
                             </div>
                         </div>
@@ -511,7 +544,7 @@
                                 <h3>Las Heras Sports — Predio Deportivo</h3>
                                 <p>Landing page moderna para complejo deportivo</p>
                                 <a href="https://www.lasherassports.com.ar" target="_blank" rel="noopener noreferrer" class="btn-ver-proyecto" aria-label="Ver proyecto Las Heras Sports en nueva pestaña">
-                                    <i class="fas fa-external-link-alt"></i> Ver proyecto
+                                    <i class="fas fa-external-link-alt" aria-hidden="true"></i> Ver proyecto
                                 </a>
                             </div>
                         </div>
@@ -526,7 +559,7 @@
                                 <h3>MoneyFlow — App Django</h3>
                                 <p>Billetera virtual desarrollada con Django, con base de datos y funcionalidades completas de aplicación web.</p>
                                 <a href="https://moneyflow.up.railway.app" target="_blank" rel="noopener noreferrer" class="btn-ver-proyecto" aria-label="Ver proyecto MoneyFlow en nueva pestaña">
-                                    <i class="fas fa-external-link-alt"></i> Ver proyecto
+                                    <i class="fas fa-external-link-alt" aria-hidden="true"></i> Ver proyecto
                                 </a>
                             </div>
                         </div>
@@ -541,7 +574,7 @@
                                 <h3>Calculadora Porcentual</h3>
                                 <p>Herramienta web intuitiva para cálculos porcentuales rápidos y precisos</p>
                                 <a href="https://www.calculadoraporcentual.com" target="_blank" rel="noopener noreferrer" class="btn-ver-proyecto" aria-label="Ver proyecto Calculadora Porcentual en nueva pestaña">
-                                    <i class="fas fa-external-link-alt"></i> Ver proyecto
+                                    <i class="fas fa-external-link-alt" aria-hidden="true"></i> Ver proyecto
                                 </a>
                             </div>
                         </div>
@@ -556,7 +589,7 @@
                                 <h3>TrivAI — Trivia con IA</h3>
                                 <p>Juego de trivia dinámico con preguntas generadas en tiempo real mediante inteligencia artificial.</p>
                                 <a href="https://trivai.up.railway.app/" target="_blank" rel="noopener noreferrer" class="btn-ver-proyecto" aria-label="Ver proyecto TrivAI en nueva pestaña">
-                                    <i class="fas fa-external-link-alt"></i> Ver proyecto
+                                    <i class="fas fa-external-link-alt" aria-hidden="true"></i> Ver proyecto
                                 </a>
                             </div>
                         </div>
@@ -565,7 +598,7 @@
             </div>
             <div class="galeria-cta">
                 <p>¿Te gusta lo que ves? Tu proyecto podría ser el siguiente.</p>
-                <a href="#contacto" class="btn-principal">Iniciar mi Proyecto</a>
+                <a href="https://wa.me/5491164233754?text=Hola%20Jos%C3%A9!%20Vi%20tus%20proyectos%20y%20quiero%20iniciar%20el%20m%C3%ADo.%20Mi%20negocio%20es%20%5B...%5D." target="_blank" rel="noopener" class="btn-principal" data-plan="galeria">Iniciar mi Proyecto</a>
             </div>
         </div>
     </section>
@@ -582,14 +615,14 @@
             <div class="testimonios-slider">
                 <div class="testimonio">
                     <div class="testimonio-contenido">
-                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <div class="quote-icon"><i class="fas fa-quote-left" aria-hidden="true"></i></div>
                             <p>Antes tenía sólo Instagram y no sabía cómo mostrar mi trabajo sin perder credibilidad. Ahora mi portafolio se ve profesional, y me llegan consultas directas. Recomiendo totalmente.</p>
                         <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
                         </div>
                     </div>
                     <div class="cliente">
@@ -597,7 +630,7 @@
                             <img src="assets/cliente1.webp" alt="Cesar Medina" loading="lazy" width="60" height="60">
                         </div>
                         <div class="cliente-info">
-                            <h4>Cesar Medina</h4>
+                            <h3>Cesar Medina</h3>
                                 <p>Artista Tatuador</p>
                         </div>
                     </div>
@@ -616,7 +649,7 @@
             </div>
             <div class="contacto-grid">
                 <div class="contacto-card contacto-left">
-                        <div class="card-header-icon"><i class="fas fa-handshake"></i></div>
+                        <div class="card-header-icon"><i class="fas fa-handshake" aria-hidden="true"></i></div>
                         <h3>Qué pasa cuando escribís</h3>
                         <p>Me gusta ser práctico. Así funciona la charla:</p>
                         <ul class="contacto-list">
@@ -626,7 +659,7 @@
                         </ul>
                 </div>
                 <div class="contacto-card contacto-cta contacto-right">
-                    <div class="card-header-icon highlight-icon"><i class="fas fa-paper-plane"></i></div>
+                    <div class="card-header-icon highlight-icon"><i class="fas fa-paper-plane" aria-hidden="true"></i></div>
                     <h3>Tu negocio, versión Pro</h3>
                         <p class="muted">El botón de abajo abre mi WhatsApp. Ya dejé un mensaje listo para que solo tengas que completar tus datos.</p>
                         
@@ -634,27 +667,28 @@
                             <span class="pulse-dot"></span> Disponible para nuevos proyectos
                         </div>
 
-                        <a href="https://wa.me/5491164233754?text=Hola%20Jos%C3%A9%21%20Quiero%20darle%20forma%20a%20mi%20proyecto.%20Mi%20negocio%20es%20%5B...%5D%20y%20me%20interesa%20el%20plan%20%5B...%5D.%20%C2%BFC%C3%B3mo%20seguimos%3F" target="_blank" rel="noopener" class="btn-principal whatsapp-cta">
-                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/5491164233754?text=Hola%20Jos%C3%A9%21%20Quiero%20darle%20forma%20a%20mi%20proyecto.%20Mi%20negocio%20es%20%5B...%5D%20y%20me%20interesa%20el%20plan%20%5B...%5D.%20%C2%BFC%C3%B3mo%20seguimos%3F" target="_blank" rel="noopener" class="btn-principal whatsapp-cta" data-plan="contacto">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
                         Hablar con José ahora
                     </a>
-                        <p class="contacto-response-time"><i class="fas fa-clock contacto-clock-icon"></i> Respuesta promedio: 2 horas (Lun-Vie)</p>
+                        <p class="contacto-response-time"><i class="fas fa-clock contacto-clock-icon" aria-hidden="true"></i> Respuesta promedio: 2 horas (Lun-Vie)</p>
                 </div>
             </div>
         </div>
     </section>
+    </main>
 
     <footer class="footer">
         <div class="container footer-container">
             <div class="footer-branding">
                 <div class="footer-logo">
-                    <h2>Tu Portafolio Web<span class="accent-dot">.</span></h2>
+                    <p class="footer-brand-name">Tu Portafolio Web<span class="accent-dot">.</span></p>
                     <span class="tagline">Arte & Diseño Digital</span>
                 </div>
                 <p class="footer-desc">Creamos experiencias digitales únicas donde el arte y la funcionalidad se unen para impulsar tu marca y maximizar tus conversiones.</p>
             </div>
             <div class="footer-links">
-                <h4>Servicios</h4>
+                <h3>Servicios</h3>
                 <ul>
                     <li><a href="#servicios">Portafolios</a></li>
                     <li><a href="#servicios">Landing Pages</a></li>
@@ -662,7 +696,7 @@
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>Empresa</h4>
+                <h3>Empresa</h3>
                 <ul>
                     <li><a href="#proyectos">Proyectos</a></li>
                     <li><a href="#proceso">Proceso</a></li>
@@ -671,24 +705,24 @@
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>Legal</h4>
+                <h3>Legal</h3>
                 <ul>
-                    <li><a href="#">Privacidad</a></li>
-                    <li><a href="#">Términos</a></li>
+                    <li><a href="#contacto">Privacidad</a></li>
+                    <li><a href="#contacto">Términos</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <div class="container">
                 <p>&copy; 2026 Tu Portafolio Web. Todos los derechos reservados.</p>
-                <p class="design-credit">Diseñado y desarrollado con <i class="fas fa-heart"></i> desde Buenos Aires</p>
+                <p class="design-credit">Diseñado y desarrollado con <i class="fas fa-heart" aria-hidden="true"></i> desde Buenos Aires</p>
             </div>
         </div>
     </footer>
 
     <div class="cta-flotante">
-        <a href="#contacto" class="btn-flotante">
-            <i class="fas fa-comments"></i>
+        <a href="https://wa.me/5491164233754?text=Hola%20Jos%C3%A9!%20Quiero%20iniciar%20mi%20proyecto.%20Mi%20negocio%20es%20%5B...%5D." target="_blank" rel="noopener" class="btn-flotante" data-plan="flotante" aria-label="Iniciar proyecto por WhatsApp">
+            <i class="fas fa-comments" aria-hidden="true"></i>
             <span>Iniciar Proyecto</span>
         </a>
     </div>
